@@ -15,14 +15,33 @@ namespace Management_Internet_Cafe
       {
         using (var db = new AppDbContext())
         {
-          bool canConnect = db.Database.CanConnect();
-          MessageBox.Show(canConnect ? "Database connected!" : "Connection failed!");
+          if (db.Database.CanConnect())
+          {
+            MessageBox.Show("Database connected!");
+            DatabaseInitializer.Initialize(); // initialize db
+          }
+          else
+          {
+            MessageBox.Show("Connection failed!.");
+          }
         }
       }
       catch (Exception ex)
       {
-        MessageBox.Show("Error: " + ex.Message);
+        MessageBox.Show("Database error: " + ex.Message);
       }
+      //try
+      //{
+      //  using (var db = new AppDbContext())
+      //  {
+      //    bool canConnect = db.Database.CanConnect();
+      //    MessageBox.Show(canConnect ? "Database connected!" : "Connection failed!");
+      //  }
+      //}
+      //catch (Exception ex)
+      //{
+      //  MessageBox.Show("Error: " + ex.Message);
+      //}
     }
   }
 }
