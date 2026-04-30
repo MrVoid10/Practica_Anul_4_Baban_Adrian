@@ -1,4 +1,5 @@
 using Management_Internet_Cafe.Data;
+using Management_Internet_Cafe.Forms;
 
 namespace Management_Internet_Cafe
 {
@@ -42,6 +43,12 @@ namespace Management_Internet_Cafe
       //{
       //  MessageBox.Show("Error: " + ex.Message);
       //}
+    }
+
+    private void btn_Load_Test_Tables_Click(object sender, EventArgs e)
+    {
+      Simple_Data_Grid_View form = new Simple_Data_Grid_View();
+      form.ShowDialog();
     }
   }
 }

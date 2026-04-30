@@ -8,11 +8,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Forms\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
-
   <!-- Copy all SQL files from Data/ to output -->
   <ItemGroup>
     <None Include="Data\*.sql" CopyToOutputDirectory="PreserveNewest" />
