@@ -64,10 +64,11 @@
       tabControl_Test_Tabels.Controls.Add(tab_Game);
       tabControl_Test_Tabels.Controls.Add(tab_Session_Games);
       tabControl_Test_Tabels.Controls.Add(tab_Payment);
+      tabControl_Test_Tabels.Dock = DockStyle.Fill;
       tabControl_Test_Tabels.Location = new Point(0, 0);
       tabControl_Test_Tabels.Name = "tabControl_Test_Tabels";
       tabControl_Test_Tabels.SelectedIndex = 0;
-      tabControl_Test_Tabels.Size = new Size(960, 540);
+      tabControl_Test_Tabels.Size = new Size(942, 533);
       tabControl_Test_Tabels.TabIndex = 0;
       // 
       // tab_Client
@@ -76,7 +77,7 @@
       tab_Client.Location = new Point(4, 29);
       tab_Client.Name = "tab_Client";
       tab_Client.Padding = new Padding(3);
-      tab_Client.Size = new Size(952, 507);
+      tab_Client.Size = new Size(934, 500);
       tab_Client.TabIndex = 0;
       tab_Client.Text = "Clients";
       tab_Client.UseVisualStyleBackColor = true;
@@ -88,7 +89,7 @@
       dgv_Clients.Location = new Point(3, 3);
       dgv_Clients.Name = "dgv_Clients";
       dgv_Clients.RowHeadersWidth = 51;
-      dgv_Clients.Size = new Size(946, 501);
+      dgv_Clients.Size = new Size(928, 494);
       dgv_Clients.TabIndex = 0;
       // 
       // tab_Calculator
@@ -97,7 +98,7 @@
       tab_Calculator.Location = new Point(4, 29);
       tab_Calculator.Name = "tab_Calculator";
       tab_Calculator.Padding = new Padding(3);
-      tab_Calculator.Size = new Size(952, 507);
+      tab_Calculator.Size = new Size(934, 500);
       tab_Calculator.TabIndex = 1;
       tab_Calculator.Text = "Computers";
       tab_Calculator.UseVisualStyleBackColor = true;
@@ -109,7 +110,7 @@
       dgv_Computers.Location = new Point(3, 3);
       dgv_Computers.Name = "dgv_Computers";
       dgv_Computers.RowHeadersWidth = 51;
-      dgv_Computers.Size = new Size(946, 501);
+      dgv_Computers.Size = new Size(928, 494);
       dgv_Computers.TabIndex = 1;
       // 
       // tab_Game
@@ -118,7 +119,7 @@
       tab_Game.Location = new Point(4, 29);
       tab_Game.Name = "tab_Game";
       tab_Game.Padding = new Padding(3);
-      tab_Game.Size = new Size(952, 507);
+      tab_Game.Size = new Size(934, 500);
       tab_Game.TabIndex = 2;
       tab_Game.Text = "Games";
       tab_Game.UseVisualStyleBackColor = true;
@@ -130,7 +131,7 @@
       dgv_Games.Location = new Point(3, 3);
       dgv_Games.Name = "dgv_Games";
       dgv_Games.RowHeadersWidth = 51;
-      dgv_Games.Size = new Size(946, 501);
+      dgv_Games.Size = new Size(928, 494);
       dgv_Games.TabIndex = 2;
       // 
       // tab_Session_Games
@@ -139,7 +140,7 @@
       tab_Session_Games.Location = new Point(4, 29);
       tab_Session_Games.Name = "tab_Session_Games";
       tab_Session_Games.Padding = new Padding(3);
-      tab_Session_Games.Size = new Size(952, 507);
+      tab_Session_Games.Size = new Size(934, 500);
       tab_Session_Games.TabIndex = 3;
       tab_Session_Games.Text = "Session Games";
       tab_Session_Games.UseVisualStyleBackColor = true;
@@ -151,7 +152,7 @@
       dgv_Session_Game.Location = new Point(3, 3);
       dgv_Session_Game.Name = "dgv_Session_Game";
       dgv_Session_Game.RowHeadersWidth = 51;
-      dgv_Session_Game.Size = new Size(946, 501);
+      dgv_Session_Game.Size = new Size(928, 494);
       dgv_Session_Game.TabIndex = 2;
       // 
       // tab_Payment
@@ -160,7 +161,7 @@
       tab_Payment.Location = new Point(4, 29);
       tab_Payment.Name = "tab_Payment";
       tab_Payment.Padding = new Padding(3);
-      tab_Payment.Size = new Size(952, 507);
+      tab_Payment.Size = new Size(934, 500);
       tab_Payment.TabIndex = 4;
       tab_Payment.Text = "Payments";
       tab_Payment.UseVisualStyleBackColor = true;
@@ -172,7 +173,7 @@
       dgv_Payments.Location = new Point(3, 3);
       dgv_Payments.Name = "dgv_Payments";
       dgv_Payments.RowHeadersWidth = 51;
-      dgv_Payments.Size = new Size(946, 501);
+      dgv_Payments.Size = new Size(928, 494);
       dgv_Payments.TabIndex = 2;
       // 
       // appDbContextBindingSource

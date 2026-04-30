@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Management_Internet_Cafe.Data
 {
@@ -20,38 +22,53 @@ namespace Management_Internet_Cafe.Data
       }
       catch (Exception ex)
       {
-        throw new Exception("Database initialization failed: " + ex.Message);
+        // ONLY ERROR POPUP
+        MessageBox.Show(
+          "Database initialization failed:\n" + ex.Message,
+          "Database Error",
+          MessageBoxButtons.OK,
+          MessageBoxIcon.Error
+        );
       }
     }
 
     private static void RunInitSql(AppDbContext db)
     {
-      string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Data","init.sql");
+      string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "init.sql");
 
       if (!File.Exists(path))
         throw new Exception("init.sql file not found!");
 
       string sql = File.ReadAllText(path);
+
       db.Database.ExecuteSqlRaw(sql);
     }
 
     private static void RunSeedSqlIfNeeded(AppDbContext db)
     {
-      // 🔥 RAW SQL CHECK (no EF models)
-      var result = db.Database
-          .SqlQuery<int>($"SELECT COUNT(*) AS Value FROM Clients")
+      try
+      {
+        // RAW SQL CHECK (fast, no UI delay)
+        var result = db.Database
+          .SqlQueryRaw<int>("SELECT COUNT(*) AS VALUE FROM Clients")
           .First();
 
-      if (result > 0)
-        return; // already seeded
+        if (result > 0)
+          return; // already seeded
 
-      string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Data","seed.sql");
+        string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "seed.sql");
 
-      if (!File.Exists(path))
-        throw new Exception("seed.sql file not found!");
+        if (!File.Exists(path))
+          throw new Exception("seed.sql file not found!");
 
-      string sql = File.ReadAllText(path);
-      db.Database.ExecuteSqlRaw(sql);
+        string sql = File.ReadAllText(path);
+
+        db.Database.ExecuteSqlRaw(sql);
+      }
+      catch (Exception ex)
+      {
+        throw new Exception("Seed initialization failed: " + ex.Message);
+      }
     }
   }
 }
