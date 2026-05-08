@@ -787,37 +787,498 @@ namespace Management_Internet_Cafe.Forms
     {
       ClearGameFields();
     }
-    // dgv_Session_Game
-    private void dgv_Session_Game_CellClick(object sender, DataGridViewCellEventArgs e)
-    {
-
-    }
-    // dgv_Payments
-    private void dgv_Payments_CellClick(object sender, DataGridViewCellEventArgs e)
-    {
-
-    }
     // dgv_Sessions
     private void dgv_Sessions_CellClick(object sender, DataGridViewCellEventArgs e)
     {
+      if (e.RowIndex >= 0)
+      {
+        DataGridViewRow row = dgv_Session.Rows[e.RowIndex];
 
+        tb_S_ClientID.Text = row.Cells["ClientId"].Value?.ToString();
+        tb_S_ComputerID.Text = row.Cells["ComputerId"].Value?.ToString();
+        tb_S_StartTime.Text = row.Cells["StartTime"].Value?.ToString();
+        tb_S_EndTime.Text = row.Cells["EndTime"].Value?.ToString();
+      }
     }
     private void btn_S_Add_Click(object sender, EventArgs e)
     {
+      try
+      {
+        // Required fields
+        if (string.IsNullOrWhiteSpace(tb_S_ClientID.Text) ||
+            string.IsNullOrWhiteSpace(tb_S_ComputerID.Text) ||
+            string.IsNullOrWhiteSpace(tb_S_StartTime.Text))
+        {
+          MessageBox.Show("ClientId, ComputerId and StartTime are required!");
+          return;
+        }
 
+        // Parse IDs
+        if (!int.TryParse(tb_S_ClientID.Text, out int clientId))
+        {
+          MessageBox.Show("Invalid Client ID!");
+          return;
+        }
+
+        if (!int.TryParse(tb_S_ComputerID.Text, out int computerId))
+        {
+          MessageBox.Show("Invalid Computer ID!");
+          return;
+        }
+
+        // Validate existing client
+        bool clientExists = _context.Clients.Any(c => c.Id == clientId);
+
+        if (!clientExists)
+        {
+          MessageBox.Show("Client ID does not exist!");
+          return;
+        }
+
+        // Validate existing computer
+        bool computerExists = _context.Computers.Any(c => c.Id == computerId);
+
+        if (!computerExists)
+        {
+          MessageBox.Show("Computer ID does not exist!");
+          return;
+        }
+
+        // Parse dates
+        if (!DateTime.TryParse(tb_S_StartTime.Text, out DateTime startTime))
+        {
+          MessageBox.Show("Invalid StartTime!");
+          return;
+        }
+
+        DateTime? endTime = null;
+
+        if (!string.IsNullOrWhiteSpace(tb_S_EndTime.Text))
+        {
+          if (!DateTime.TryParse(tb_S_EndTime.Text, out DateTime parsedEnd))
+          {
+            MessageBox.Show("Invalid EndTime!");
+            return;
+          }
+
+          // Validate time order
+          if (parsedEnd < startTime)
+          {
+            MessageBox.Show("EndTime cannot be earlier than StartTime!");
+            return;
+          }
+
+          endTime = parsedEnd;
+        }
+
+        Session session = new Session()
+        {
+          ClientId = clientId,
+          ComputerId = computerId,
+          StartTime = startTime,
+          EndTime = endTime
+        };
+
+        _context.Sessions.Add(session);
+        _context.SaveChanges();
+
+        LoadData();
+        ClearSessionFields();
+
+        MessageBox.Show("Session added successfully!");
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Add error: " + ex.Message);
+      }
     }
 
     private void btn_S_Edit_Click(object sender, EventArgs e)
     {
+      try
+      {
+        if (dgv_Session.CurrentRow == null)
+        {
+          MessageBox.Show("Select a session first!");
+          return;
+        }
 
+        int id = Convert.ToInt32(
+            dgv_Session.CurrentRow.Cells["Id"].Value);
+
+        Session session = _context.Sessions.Find(id);
+
+        if (session == null)
+        {
+          MessageBox.Show("Session not found!");
+          return;
+        }
+
+        // Validate IDs
+        if (!int.TryParse(tb_S_ClientID.Text, out int clientId) ||
+            !int.TryParse(tb_S_ComputerID.Text, out int computerId))
+        {
+          MessageBox.Show("Invalid IDs!");
+          return;
+        }
+
+        bool clientExists = _context.Clients.Any(c => c.Id == clientId);
+
+        if (!clientExists)
+        {
+          MessageBox.Show("Client ID does not exist!");
+          return;
+        }
+
+        bool computerExists = _context.Computers.Any(c => c.Id == computerId);
+
+        if (!computerExists)
+        {
+          MessageBox.Show("Computer ID does not exist!");
+          return;
+        }
+
+        // Validate dates
+        if (!DateTime.TryParse(tb_S_StartTime.Text, out DateTime startTime))
+        {
+          MessageBox.Show("Invalid StartTime!");
+          return;
+        }
+
+        DateTime? endTime = null;
+
+        if (!string.IsNullOrWhiteSpace(tb_S_EndTime.Text))
+        {
+          if (!DateTime.TryParse(tb_S_EndTime.Text, out DateTime parsedEnd))
+          {
+            MessageBox.Show("Invalid EndTime!");
+            return;
+          }
+
+          if (parsedEnd < startTime)
+          {
+            MessageBox.Show("EndTime cannot be earlier than StartTime!");
+            return;
+          }
+
+          endTime = parsedEnd;
+        }
+
+        session.ClientId = clientId;
+        session.ComputerId = computerId;
+        session.StartTime = startTime;
+        session.EndTime = endTime;
+
+        _context.SaveChanges();
+
+        LoadData();
+        ClearSessionFields();
+
+        MessageBox.Show("Session updated successfully!");
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Edit error: " + ex.Message);
+      }
     }
 
     private void btn_S_Delete_Click(object sender, EventArgs e)
     {
+      try
+      {
+        if (dgv_Session.CurrentRow == null)
+        {
+          MessageBox.Show("Select a session first!");
+          return;
+        }
 
+        DialogResult result = MessageBox.Show(
+            "Are you sure you want to delete this session?",
+            "Delete Confirmation",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Warning);
+
+        if (result != DialogResult.Yes)
+          return;
+
+        int id = Convert.ToInt32(
+            dgv_Session.CurrentRow.Cells["Id"].Value);
+
+        Session session = _context.Sessions.Find(id);
+
+        if (session == null)
+        {
+          MessageBox.Show("Session not found!");
+          return;
+        }
+
+        _context.Sessions.Remove(session);
+        _context.SaveChanges();
+
+        LoadData();
+        ClearSessionFields();
+
+        MessageBox.Show("Session deleted successfully!");
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Delete error: " + ex.Message);
+      }
     }
 
     private void btn_S_Search_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        string clientSearch = tb_S_ClientID.Text.Trim();
+        string computerSearch = tb_S_ComputerID.Text.Trim();
+
+        dgv_Session.DataSource = _context.Sessions
+            .Where(s =>
+                (string.IsNullOrEmpty(clientSearch) ||
+                 s.ClientId.ToString().Contains(clientSearch))
+                &&
+                (string.IsNullOrEmpty(computerSearch) ||
+                 s.ComputerId.ToString().Contains(computerSearch))
+            )
+            .Select(s => new
+            {
+              s.Id,
+              s.ClientId,
+              s.ComputerId,
+              s.StartTime,
+              s.EndTime
+            })
+            .ToList();
+
+        dgv_Session.Columns["Id"].Visible = false;
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Search error: " + ex.Message);
+      }
+    }
+
+    private void ClearSessionFields()
+    {
+      tb_S_ClientID.Clear();
+      tb_S_ComputerID.Clear();
+      tb_S_StartTime.Clear();
+      tb_S_EndTime.Clear();
+    }
+
+    private void btn_S_Clear_Fields_Click(object sender, EventArgs e)
+    {
+      ClearSessionFields();
+    }
+    // dgv_Session_Game
+    private void dgv_Session_Game_CellClick(object sender, DataGridViewCellEventArgs e)
+    {
+      if (e.RowIndex >= 0)
+      {
+        DataGridViewRow row = dgv_Session_Game.Rows[e.RowIndex];
+
+        tb_SG_SessionID.Text = row.Cells["SessionId"].Value?.ToString();
+        tb_SG_GameID.Text = row.Cells["GameId"].Value?.ToString();
+      }
+    }
+    private void btn_SG_Add_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        if (!int.TryParse(tb_SG_SessionID.Text, out int sessionId) ||
+            !int.TryParse(tb_SG_GameID.Text, out int gameId))
+        {
+          MessageBox.Show("Invalid SessionId or GameId!");
+          return;
+        }
+
+        // FK VALIDATION
+        bool sessionExists = _context.Sessions.Any(s => s.Id == sessionId);
+        bool gameExists = _context.Games.Any(g => g.Id == gameId);
+
+        if (!sessionExists)
+        {
+          MessageBox.Show("Session does not exist!");
+          return;
+        }
+
+        if (!gameExists)
+        {
+          MessageBox.Show("Game does not exist!");
+          return;
+        }
+
+        // DUPLICATE CHECK
+        bool exists = _context.SessionGames
+            .Any(sg => sg.SessionId == sessionId && sg.GameId == gameId);
+
+        if (exists)
+        {
+          MessageBox.Show("This game is already assigned to this session!");
+          return;
+        }
+
+        SessionGame sgEntity = new SessionGame()
+        {
+          SessionId = sessionId,
+          GameId = gameId
+        };
+
+        _context.SessionGames.Add(sgEntity);
+        _context.SaveChanges();
+
+        LoadData();
+        ClearSessionGameFields();
+
+        MessageBox.Show("SessionGame added successfully!");
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Add error: " + ex.Message);
+      }
+    }
+
+    private void btn_SG_Edit_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        if (dgv_Session_Game.CurrentRow == null)
+        {
+          MessageBox.Show("Select a record first!");
+          return;
+        }
+
+        int id = Convert.ToInt32(
+            dgv_Session_Game.CurrentRow.Cells["Id"].Value);
+
+        SessionGame sg = _context.SessionGames.Find(id);
+
+        if (sg == null)
+        {
+          MessageBox.Show("Record not found!");
+          return;
+        }
+
+        if (!int.TryParse(tb_SG_SessionID.Text, out int sessionId) ||
+            !int.TryParse(tb_SG_GameID.Text, out int gameId))
+        {
+          MessageBox.Show("Invalid SessionId or GameId!");
+          return;
+        }
+
+        bool sessionExists = _context.Sessions.Any(s => s.Id == sessionId);
+        bool gameExists = _context.Games.Any(g => g.Id == gameId);
+
+        if (!sessionExists || !gameExists)
+        {
+          MessageBox.Show("Session or Game does not exist!");
+          return;
+        }
+
+        sg.SessionId = sessionId;
+        sg.GameId = gameId;
+
+        _context.SaveChanges();
+
+        LoadData();
+        ClearSessionGameFields();
+
+        MessageBox.Show("SessionGame updated!");
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Edit error: " + ex.Message);
+      }
+    }
+
+    private void btn_SG_Delete_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        if (dgv_Session_Game.CurrentRow == null)
+        {
+          MessageBox.Show("Select a record first!");
+          return;
+        }
+
+        DialogResult result = MessageBox.Show(
+            "Are you sure you want to delete this relation?",
+            "Delete Confirmation",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Warning);
+
+        if (result != DialogResult.Yes)
+          return;
+
+        int id = Convert.ToInt32(
+            dgv_Session_Game.CurrentRow.Cells["Id"].Value);
+
+        SessionGame sg = _context.SessionGames.Find(id);
+
+        if (sg == null)
+        {
+          MessageBox.Show("Record not found!");
+          return;
+        }
+
+        _context.SessionGames.Remove(sg);
+        _context.SaveChanges();
+
+        LoadData();
+        ClearSessionGameFields();
+
+        MessageBox.Show("Deleted successfully!");
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Delete error: " + ex.Message);
+      }
+    }
+
+    private void btn_SG_Search_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        string sessionSearch = tb_SG_SessionID.Text.Trim();
+        string gameSearch = tb_SG_GameID.Text.Trim();
+
+        dgv_Session_Game.DataSource = _context.SessionGames
+            .Where(sg =>
+                (string.IsNullOrEmpty(sessionSearch) ||
+                 sg.SessionId.ToString().Contains(sessionSearch))
+                &&
+                (string.IsNullOrEmpty(gameSearch) ||
+                 sg.GameId.ToString().Contains(gameSearch))
+            )
+            .Select(sg => new
+            {
+              sg.Id,
+              sg.SessionId,
+              sg.GameId
+            })
+            .ToList();
+
+        dgv_Session_Game.Columns["Id"].Visible = false;
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Search error: " + ex.Message);
+      }
+    }
+
+    private void ClearSessionGameFields()
+    {
+      tb_SG_SessionID.Clear();
+      tb_SG_GameID.Clear();
+    }
+
+    private void btn_SG_Clear_Fields_Click(object sender, EventArgs e)
+    {
+      ClearSessionGameFields();
+    }
+    // dgv_Payments
+    private void dgv_Payments_CellClick(object sender, DataGridViewCellEventArgs e)
     {
 
     }

@@ -72,9 +72,28 @@
       btn_GM_Add = new Button();
       tb_GM_Genre = new TextBox();
       tb_GM_Name = new TextBox();
+      tab_Session = new TabPage();
+      splitContainer5 = new SplitContainer();
+      dgv_Session = new DataGridView();
+      lb_S_End_Time = new Label();
+      lb_S_Start_Time = new Label();
+      lb_S_ComputerID = new Label();
+      lb_S_ClientID = new Label();
+      btn_S_Clear_Fields = new Button();
+      btn_S_Search = new Button();
+      btn_S_Delete = new Button();
+      btn_S_Edit = new Button();
+      btn_S_Add = new Button();
+      tb_S_EndTime = new TextBox();
+      tb_S_StartTime = new TextBox();
+      tb_S_ComputerID = new TextBox();
+      tb_S_ClientID = new TextBox();
       tab_Session_Games = new TabPage();
       splitContainer3 = new SplitContainer();
       dgv_Session_Game = new DataGridView();
+      btn_SG_Clear_Fields = new Button();
+      lb_SG_GameID = new Label();
+      lb_SG_SessionID = new Label();
       btn_SG_Search = new Button();
       btn_SG_Delete = new Button();
       btn_SG_Edit = new Button();
@@ -92,17 +111,6 @@
       tb_PY_PaymentMethod = new TextBox();
       tb_PY_Amount = new TextBox();
       tb_PY_SessionID = new TextBox();
-      tab_Session = new TabPage();
-      splitContainer5 = new SplitContainer();
-      dgv_Session = new DataGridView();
-      btn_S_Search = new Button();
-      btn_S_Delete = new Button();
-      btn_S_Edit = new Button();
-      btn_S_Add = new Button();
-      tb_S_EndTime = new TextBox();
-      tb_S_StartTime = new TextBox();
-      tb_S_ComputerID = new TextBox();
-      tb_S_ClientID = new TextBox();
       appDbContextBindingSource = new BindingSource(components);
       appDbContextBindingSource1 = new BindingSource(components);
       appDbContextBindingSource2 = new BindingSource(components);
@@ -125,6 +133,12 @@
       splitContainer2.Panel2.SuspendLayout();
       splitContainer2.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)dgv_Games).BeginInit();
+      tab_Session.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)splitContainer5).BeginInit();
+      splitContainer5.Panel1.SuspendLayout();
+      splitContainer5.Panel2.SuspendLayout();
+      splitContainer5.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)dgv_Session).BeginInit();
       tab_Session_Games.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)splitContainer3).BeginInit();
       splitContainer3.Panel1.SuspendLayout();
@@ -137,12 +151,6 @@
       splitContainer4.Panel2.SuspendLayout();
       splitContainer4.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)dgv_Payments).BeginInit();
-      tab_Session.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)splitContainer5).BeginInit();
-      splitContainer5.Panel1.SuspendLayout();
-      splitContainer5.Panel2.SuspendLayout();
-      splitContainer5.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)dgv_Session).BeginInit();
       ((System.ComponentModel.ISupportInitialize)appDbContextBindingSource).BeginInit();
       ((System.ComponentModel.ISupportInitialize)appDbContextBindingSource1).BeginInit();
       ((System.ComponentModel.ISupportInitialize)appDbContextBindingSource2).BeginInit();
@@ -153,9 +161,9 @@
       tabControl_Test_Tabels.Controls.Add(tab_Client);
       tabControl_Test_Tabels.Controls.Add(tab_Calculator);
       tabControl_Test_Tabels.Controls.Add(tab_Game);
+      tabControl_Test_Tabels.Controls.Add(tab_Session);
       tabControl_Test_Tabels.Controls.Add(tab_Session_Games);
       tabControl_Test_Tabels.Controls.Add(tab_Payment);
-      tabControl_Test_Tabels.Controls.Add(tab_Session);
       tabControl_Test_Tabels.Dock = DockStyle.Fill;
       tabControl_Test_Tabels.Location = new Point(0, 0);
       tabControl_Test_Tabels.Name = "tabControl_Test_Tabels";
@@ -614,6 +622,175 @@
       tb_GM_Name.Size = new Size(125, 27);
       tb_GM_Name.TabIndex = 16;
       // 
+      // tab_Session
+      // 
+      tab_Session.Controls.Add(splitContainer5);
+      tab_Session.Location = new Point(4, 29);
+      tab_Session.Name = "tab_Session";
+      tab_Session.Padding = new Padding(3);
+      tab_Session.Size = new Size(934, 500);
+      tab_Session.TabIndex = 5;
+      tab_Session.Text = "Sessions";
+      tab_Session.UseVisualStyleBackColor = true;
+      // 
+      // splitContainer5
+      // 
+      splitContainer5.Dock = DockStyle.Fill;
+      splitContainer5.Location = new Point(3, 3);
+      splitContainer5.Name = "splitContainer5";
+      // 
+      // splitContainer5.Panel1
+      // 
+      splitContainer5.Panel1.Controls.Add(dgv_Session);
+      // 
+      // splitContainer5.Panel2
+      // 
+      splitContainer5.Panel2.Controls.Add(lb_S_End_Time);
+      splitContainer5.Panel2.Controls.Add(lb_S_Start_Time);
+      splitContainer5.Panel2.Controls.Add(lb_S_ComputerID);
+      splitContainer5.Panel2.Controls.Add(lb_S_ClientID);
+      splitContainer5.Panel2.Controls.Add(btn_S_Clear_Fields);
+      splitContainer5.Panel2.Controls.Add(btn_S_Search);
+      splitContainer5.Panel2.Controls.Add(btn_S_Delete);
+      splitContainer5.Panel2.Controls.Add(btn_S_Edit);
+      splitContainer5.Panel2.Controls.Add(btn_S_Add);
+      splitContainer5.Panel2.Controls.Add(tb_S_EndTime);
+      splitContainer5.Panel2.Controls.Add(tb_S_StartTime);
+      splitContainer5.Panel2.Controls.Add(tb_S_ComputerID);
+      splitContainer5.Panel2.Controls.Add(tb_S_ClientID);
+      splitContainer5.Size = new Size(928, 494);
+      splitContainer5.SplitterDistance = 661;
+      splitContainer5.TabIndex = 0;
+      // 
+      // dgv_Session
+      // 
+      dgv_Session.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+      dgv_Session.Dock = DockStyle.Fill;
+      dgv_Session.Location = new Point(0, 0);
+      dgv_Session.Name = "dgv_Session";
+      dgv_Session.RowHeadersWidth = 51;
+      dgv_Session.Size = new Size(661, 494);
+      dgv_Session.TabIndex = 0;
+      dgv_Session.CellClick += dgv_Sessions_CellClick;
+      // 
+      // lb_S_End_Time
+      // 
+      lb_S_End_Time.AutoSize = true;
+      lb_S_End_Time.Location = new Point(3, 117);
+      lb_S_End_Time.Name = "lb_S_End_Time";
+      lb_S_End_Time.Size = new Size(71, 20);
+      lb_S_End_Time.TabIndex = 28;
+      lb_S_End_Time.Text = "End Time";
+      // 
+      // lb_S_Start_Time
+      // 
+      lb_S_Start_Time.AutoSize = true;
+      lb_S_Start_Time.Location = new Point(3, 64);
+      lb_S_Start_Time.Name = "lb_S_Start_Time";
+      lb_S_Start_Time.Size = new Size(77, 20);
+      lb_S_Start_Time.TabIndex = 27;
+      lb_S_Start_Time.Text = "Start Time";
+      // 
+      // lb_S_ComputerID
+      // 
+      lb_S_ComputerID.AutoSize = true;
+      lb_S_ComputerID.Location = new Point(134, 5);
+      lb_S_ComputerID.Name = "lb_S_ComputerID";
+      lb_S_ComputerID.Size = new Size(94, 20);
+      lb_S_ComputerID.TabIndex = 26;
+      lb_S_ComputerID.Text = "Computer ID";
+      // 
+      // lb_S_ClientID
+      // 
+      lb_S_ClientID.AutoSize = true;
+      lb_S_ClientID.Location = new Point(3, 5);
+      lb_S_ClientID.Name = "lb_S_ClientID";
+      lb_S_ClientID.Size = new Size(66, 20);
+      lb_S_ClientID.TabIndex = 25;
+      lb_S_ClientID.Text = "Client ID";
+      // 
+      // btn_S_Clear_Fields
+      // 
+      btn_S_Clear_Fields.Location = new Point(103, 237);
+      btn_S_Clear_Fields.Name = "btn_S_Clear_Fields";
+      btn_S_Clear_Fields.Size = new Size(94, 29);
+      btn_S_Clear_Fields.TabIndex = 24;
+      btn_S_Clear_Fields.Text = "Clear Fields";
+      btn_S_Clear_Fields.UseVisualStyleBackColor = true;
+      btn_S_Clear_Fields.Click += btn_S_Clear_Fields_Click;
+      // 
+      // btn_S_Search
+      // 
+      btn_S_Search.Location = new Point(103, 202);
+      btn_S_Search.Name = "btn_S_Search";
+      btn_S_Search.Size = new Size(94, 29);
+      btn_S_Search.TabIndex = 23;
+      btn_S_Search.Text = "Search";
+      btn_S_Search.UseVisualStyleBackColor = true;
+      btn_S_Search.Click += btn_S_Search_Click;
+      // 
+      // btn_S_Delete
+      // 
+      btn_S_Delete.Location = new Point(3, 202);
+      btn_S_Delete.Name = "btn_S_Delete";
+      btn_S_Delete.Size = new Size(94, 29);
+      btn_S_Delete.TabIndex = 22;
+      btn_S_Delete.Text = "Delete";
+      btn_S_Delete.UseVisualStyleBackColor = true;
+      btn_S_Delete.Click += btn_S_Delete_Click;
+      // 
+      // btn_S_Edit
+      // 
+      btn_S_Edit.Location = new Point(103, 167);
+      btn_S_Edit.Name = "btn_S_Edit";
+      btn_S_Edit.Size = new Size(94, 29);
+      btn_S_Edit.TabIndex = 21;
+      btn_S_Edit.Text = "Edit";
+      btn_S_Edit.UseVisualStyleBackColor = true;
+      btn_S_Edit.Click += btn_S_Edit_Click;
+      // 
+      // btn_S_Add
+      // 
+      btn_S_Add.Location = new Point(3, 167);
+      btn_S_Add.Name = "btn_S_Add";
+      btn_S_Add.Size = new Size(94, 29);
+      btn_S_Add.TabIndex = 20;
+      btn_S_Add.Text = "Add";
+      btn_S_Add.UseVisualStyleBackColor = true;
+      btn_S_Add.Click += btn_S_Add_Click;
+      // 
+      // tb_S_EndTime
+      // 
+      tb_S_EndTime.Location = new Point(3, 140);
+      tb_S_EndTime.Name = "tb_S_EndTime";
+      tb_S_EndTime.PlaceholderText = "End Time";
+      tb_S_EndTime.Size = new Size(194, 27);
+      tb_S_EndTime.TabIndex = 19;
+      // 
+      // tb_S_StartTime
+      // 
+      tb_S_StartTime.Location = new Point(3, 87);
+      tb_S_StartTime.Name = "tb_S_StartTime";
+      tb_S_StartTime.PlaceholderText = "Start Time";
+      tb_S_StartTime.Size = new Size(194, 27);
+      tb_S_StartTime.TabIndex = 18;
+      // 
+      // tb_S_ComputerID
+      // 
+      tb_S_ComputerID.Location = new Point(134, 28);
+      tb_S_ComputerID.Name = "tb_S_ComputerID";
+      tb_S_ComputerID.PlaceholderText = "ComputerID";
+      tb_S_ComputerID.Size = new Size(125, 27);
+      tb_S_ComputerID.TabIndex = 17;
+      // 
+      // tb_S_ClientID
+      // 
+      tb_S_ClientID.Location = new Point(3, 28);
+      tb_S_ClientID.Name = "tb_S_ClientID";
+      tb_S_ClientID.PlaceholderText = "Client ID";
+      tb_S_ClientID.Size = new Size(125, 27);
+      tb_S_ClientID.TabIndex = 16;
+      // 
       // tab_Session_Games
       // 
       tab_Session_Games.Controls.Add(splitContainer3);
@@ -637,6 +814,9 @@
       // 
       // splitContainer3.Panel2
       // 
+      splitContainer3.Panel2.Controls.Add(btn_SG_Clear_Fields);
+      splitContainer3.Panel2.Controls.Add(lb_SG_GameID);
+      splitContainer3.Panel2.Controls.Add(lb_SG_SessionID);
       splitContainer3.Panel2.Controls.Add(btn_SG_Search);
       splitContainer3.Panel2.Controls.Add(btn_SG_Delete);
       splitContainer3.Panel2.Controls.Add(btn_SG_Edit);
@@ -658,6 +838,34 @@
       dgv_Session_Game.TabIndex = 2;
       dgv_Session_Game.CellClick += dgv_Session_Game_CellClick;
       // 
+      // btn_SG_Clear_Fields
+      // 
+      btn_SG_Clear_Fields.Location = new Point(128, 182);
+      btn_SG_Clear_Fields.Name = "btn_SG_Clear_Fields";
+      btn_SG_Clear_Fields.Size = new Size(94, 29);
+      btn_SG_Clear_Fields.TabIndex = 25;
+      btn_SG_Clear_Fields.Text = "Clear Fields";
+      btn_SG_Clear_Fields.UseVisualStyleBackColor = true;
+      btn_SG_Clear_Fields.Click += btn_SG_Clear_Fields_Click;
+      // 
+      // lb_SG_GameID
+      // 
+      lb_SG_GameID.AutoSize = true;
+      lb_SG_GameID.Location = new Point(155, 10);
+      lb_SG_GameID.Name = "lb_SG_GameID";
+      lb_SG_GameID.Size = new Size(67, 20);
+      lb_SG_GameID.TabIndex = 17;
+      lb_SG_GameID.Text = "Game ID";
+      // 
+      // lb_SG_SessionID
+      // 
+      lb_SG_SessionID.AutoSize = true;
+      lb_SG_SessionID.Location = new Point(24, 10);
+      lb_SG_SessionID.Name = "lb_SG_SessionID";
+      lb_SG_SessionID.Size = new Size(77, 20);
+      lb_SG_SessionID.TabIndex = 16;
+      lb_SG_SessionID.Text = "Session ID";
+      // 
       // btn_SG_Search
       // 
       btn_SG_Search.Location = new Point(124, 147);
@@ -666,6 +874,7 @@
       btn_SG_Search.TabIndex = 15;
       btn_SG_Search.Text = "Search";
       btn_SG_Search.UseVisualStyleBackColor = true;
+      btn_SG_Search.Click += btn_SG_Search_Click;
       // 
       // btn_SG_Delete
       // 
@@ -675,6 +884,7 @@
       btn_SG_Delete.TabIndex = 14;
       btn_SG_Delete.Text = "Delete";
       btn_SG_Delete.UseVisualStyleBackColor = true;
+      btn_SG_Delete.Click += btn_SG_Delete_Click;
       // 
       // btn_SG_Edit
       // 
@@ -684,6 +894,7 @@
       btn_SG_Edit.TabIndex = 13;
       btn_SG_Edit.Text = "Edit";
       btn_SG_Edit.UseVisualStyleBackColor = true;
+      btn_SG_Edit.Click += btn_SG_Edit_Click;
       // 
       // btn_SG_Add
       // 
@@ -693,10 +904,11 @@
       btn_SG_Add.TabIndex = 12;
       btn_SG_Add.Text = "Add";
       btn_SG_Add.UseVisualStyleBackColor = true;
+      btn_SG_Add.Click += btn_SG_Add_Click;
       // 
       // tb_SG_GameID
       // 
-      tb_SG_GameID.Location = new Point(155, 17);
+      tb_SG_GameID.Location = new Point(155, 33);
       tb_SG_GameID.Name = "tb_SG_GameID";
       tb_SG_GameID.PlaceholderText = "GameId";
       tb_SG_GameID.Size = new Size(125, 27);
@@ -704,7 +916,7 @@
       // 
       // tb_SG_SessionID
       // 
-      tb_SG_SessionID.Location = new Point(24, 17);
+      tb_SG_SessionID.Location = new Point(24, 33);
       tb_SG_SessionID.Name = "tb_SG_SessionID";
       tb_SG_SessionID.PlaceholderText = "SessionId";
       tb_SG_SessionID.Size = new Size(125, 27);
@@ -824,124 +1036,6 @@
       tb_PY_SessionID.Size = new Size(125, 27);
       tb_PY_SessionID.TabIndex = 8;
       // 
-      // tab_Session
-      // 
-      tab_Session.Controls.Add(splitContainer5);
-      tab_Session.Location = new Point(4, 29);
-      tab_Session.Name = "tab_Session";
-      tab_Session.Padding = new Padding(3);
-      tab_Session.Size = new Size(934, 500);
-      tab_Session.TabIndex = 5;
-      tab_Session.Text = "Sessions";
-      tab_Session.UseVisualStyleBackColor = true;
-      // 
-      // splitContainer5
-      // 
-      splitContainer5.Dock = DockStyle.Fill;
-      splitContainer5.Location = new Point(3, 3);
-      splitContainer5.Name = "splitContainer5";
-      // 
-      // splitContainer5.Panel1
-      // 
-      splitContainer5.Panel1.Controls.Add(dgv_Session);
-      // 
-      // splitContainer5.Panel2
-      // 
-      splitContainer5.Panel2.Controls.Add(btn_S_Search);
-      splitContainer5.Panel2.Controls.Add(btn_S_Delete);
-      splitContainer5.Panel2.Controls.Add(btn_S_Edit);
-      splitContainer5.Panel2.Controls.Add(btn_S_Add);
-      splitContainer5.Panel2.Controls.Add(tb_S_EndTime);
-      splitContainer5.Panel2.Controls.Add(tb_S_StartTime);
-      splitContainer5.Panel2.Controls.Add(tb_S_ComputerID);
-      splitContainer5.Panel2.Controls.Add(tb_S_ClientID);
-      splitContainer5.Size = new Size(928, 494);
-      splitContainer5.SplitterDistance = 661;
-      splitContainer5.TabIndex = 0;
-      // 
-      // dgv_Session
-      // 
-      dgv_Session.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-      dgv_Session.Dock = DockStyle.Fill;
-      dgv_Session.Location = new Point(0, 0);
-      dgv_Session.Name = "dgv_Session";
-      dgv_Session.RowHeadersWidth = 51;
-      dgv_Session.Size = new Size(661, 494);
-      dgv_Session.TabIndex = 0;
-      dgv_Session.CellClick += dgv_Sessions_CellClick;
-      // 
-      // btn_S_Search
-      // 
-      btn_S_Search.Location = new Point(103, 119);
-      btn_S_Search.Name = "btn_S_Search";
-      btn_S_Search.Size = new Size(94, 29);
-      btn_S_Search.TabIndex = 23;
-      btn_S_Search.Text = "Search";
-      btn_S_Search.UseVisualStyleBackColor = true;
-      btn_S_Search.Click += btn_S_Search_Click;
-      // 
-      // btn_S_Delete
-      // 
-      btn_S_Delete.Location = new Point(3, 119);
-      btn_S_Delete.Name = "btn_S_Delete";
-      btn_S_Delete.Size = new Size(94, 29);
-      btn_S_Delete.TabIndex = 22;
-      btn_S_Delete.Text = "Delete";
-      btn_S_Delete.UseVisualStyleBackColor = true;
-      btn_S_Delete.Click += btn_S_Delete_Click;
-      // 
-      // btn_S_Edit
-      // 
-      btn_S_Edit.Location = new Point(103, 84);
-      btn_S_Edit.Name = "btn_S_Edit";
-      btn_S_Edit.Size = new Size(94, 29);
-      btn_S_Edit.TabIndex = 21;
-      btn_S_Edit.Text = "Edit";
-      btn_S_Edit.UseVisualStyleBackColor = true;
-      btn_S_Edit.Click += btn_S_Edit_Click;
-      // 
-      // btn_S_Add
-      // 
-      btn_S_Add.Location = new Point(3, 84);
-      btn_S_Add.Name = "btn_S_Add";
-      btn_S_Add.Size = new Size(94, 29);
-      btn_S_Add.TabIndex = 20;
-      btn_S_Add.Text = "Add";
-      btn_S_Add.UseVisualStyleBackColor = true;
-      btn_S_Add.Click += btn_S_Add_Click;
-      // 
-      // tb_S_EndTime
-      // 
-      tb_S_EndTime.Location = new Point(134, 36);
-      tb_S_EndTime.Name = "tb_S_EndTime";
-      tb_S_EndTime.PlaceholderText = "End Time";
-      tb_S_EndTime.Size = new Size(125, 27);
-      tb_S_EndTime.TabIndex = 19;
-      // 
-      // tb_S_StartTime
-      // 
-      tb_S_StartTime.Location = new Point(3, 36);
-      tb_S_StartTime.Name = "tb_S_StartTime";
-      tb_S_StartTime.PlaceholderText = "Start Time";
-      tb_S_StartTime.Size = new Size(125, 27);
-      tb_S_StartTime.TabIndex = 18;
-      // 
-      // tb_S_ComputerID
-      // 
-      tb_S_ComputerID.Location = new Point(134, 3);
-      tb_S_ComputerID.Name = "tb_S_ComputerID";
-      tb_S_ComputerID.PlaceholderText = "ComputerID";
-      tb_S_ComputerID.Size = new Size(125, 27);
-      tb_S_ComputerID.TabIndex = 17;
-      // 
-      // tb_S_ClientID
-      // 
-      tb_S_ClientID.Location = new Point(3, 3);
-      tb_S_ClientID.Name = "tb_S_ClientID";
-      tb_S_ClientID.PlaceholderText = "Client ID";
-      tb_S_ClientID.Size = new Size(125, 27);
-      tb_S_ClientID.TabIndex = 16;
-      // 
       // appDbContextBindingSource
       // 
       appDbContextBindingSource.DataSource = typeof(Data.AppDbContext);
@@ -985,6 +1079,13 @@
       ((System.ComponentModel.ISupportInitialize)splitContainer2).EndInit();
       splitContainer2.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)dgv_Games).EndInit();
+      tab_Session.ResumeLayout(false);
+      splitContainer5.Panel1.ResumeLayout(false);
+      splitContainer5.Panel2.ResumeLayout(false);
+      splitContainer5.Panel2.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)splitContainer5).EndInit();
+      splitContainer5.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)dgv_Session).EndInit();
       tab_Session_Games.ResumeLayout(false);
       splitContainer3.Panel1.ResumeLayout(false);
       splitContainer3.Panel2.ResumeLayout(false);
@@ -999,13 +1100,6 @@
       ((System.ComponentModel.ISupportInitialize)splitContainer4).EndInit();
       splitContainer4.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)dgv_Payments).EndInit();
-      tab_Session.ResumeLayout(false);
-      splitContainer5.Panel1.ResumeLayout(false);
-      splitContainer5.Panel2.ResumeLayout(false);
-      splitContainer5.Panel2.PerformLayout();
-      ((System.ComponentModel.ISupportInitialize)splitContainer5).EndInit();
-      splitContainer5.ResumeLayout(false);
-      ((System.ComponentModel.ISupportInitialize)dgv_Session).EndInit();
       ((System.ComponentModel.ISupportInitialize)appDbContextBindingSource).EndInit();
       ((System.ComponentModel.ISupportInitialize)appDbContextBindingSource1).EndInit();
       ((System.ComponentModel.ISupportInitialize)appDbContextBindingSource2).EndInit();
@@ -1094,5 +1188,13 @@
     private Button btn_GM_Clear_Fields;
     private Label lb_GM_Genre;
     private Label lb_GM_Name;
+    private Label lb_S_End_Time;
+    private Label lb_S_Start_Time;
+    private Label lb_S_ComputerID;
+    private Label lb_S_ClientID;
+    private Button btn_S_Clear_Fields;
+    private Label lb_SG_GameID;
+    private Label lb_SG_SessionID;
+    private Button btn_SG_Clear_Fields;
   }
 }
