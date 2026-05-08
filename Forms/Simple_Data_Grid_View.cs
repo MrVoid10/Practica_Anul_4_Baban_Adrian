@@ -443,8 +443,179 @@ namespace Management_Internet_Cafe.Forms
     // dgv_Computers
     private void dgv_Computers_CellClick(object sender, DataGridViewCellEventArgs e)
     {
+      if (e.RowIndex >= 0)
+      {
+        DataGridViewRow row = dgv_Computers.Rows[e.RowIndex];
 
+        tb_PC_PcNumber.Text = row.Cells["PcNumber"].Value?.ToString();
+        tb_PC_Status.Text = row.Cells["Status"].Value?.ToString();
+        tb_PC_Specifications.Text = row.Cells["Specifications"].Value?.ToString();
+      }
     }
+    private void btn_PC_Add_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        if (string.IsNullOrWhiteSpace(tb_PC_PcNumber.Text) ||
+            string.IsNullOrWhiteSpace(tb_PC_Status.Text))
+        {
+          MessageBox.Show("PcNumber and Status are required!");
+          return;
+        }
+
+        Computer computer = new Computer()
+        {
+          PcNumber = tb_PC_PcNumber.Text.Trim(),
+          Status = tb_PC_Status.Text.Trim(),
+          Specifications = tb_PC_Specifications.Text.Trim()
+        };
+
+        _context.Computers.Add(computer);
+        _context.SaveChanges();
+
+        LoadData();
+        ClearComputerFields();
+
+        MessageBox.Show("Computer added successfully!");
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Add error: " + ex.Message);
+      }
+    }
+
+    private void btn_PC_Edit_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        if (dgv_Computers.CurrentRow == null)
+        {
+          MessageBox.Show("Select a computer first!");
+          return;
+        }
+
+        int id = Convert.ToInt32(
+            dgv_Computers.CurrentRow.Cells["Id"].Value);
+
+        Computer computer = _context.Computers.Find(id);
+
+        if (computer == null)
+        {
+          MessageBox.Show("Computer not found!");
+          return;
+        }
+
+        if (string.IsNullOrWhiteSpace(tb_PC_PcNumber.Text) ||
+            string.IsNullOrWhiteSpace(tb_PC_Status.Text))
+        {
+          MessageBox.Show("PcNumber and Status are required!");
+          return;
+        }
+
+        computer.PcNumber = tb_PC_PcNumber.Text.Trim();
+        computer.Status = tb_PC_Status.Text.Trim();
+        computer.Specifications = tb_PC_Specifications.Text.Trim();
+
+        _context.SaveChanges();
+
+        LoadData();
+        ClearComputerFields();
+
+        MessageBox.Show("Computer updated successfully!");
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Edit error: " + ex.Message);
+      }
+    }
+
+    private void btn_PC_Delete_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        if (dgv_Computers.CurrentRow == null)
+        {
+          MessageBox.Show("Select a computer first!");
+          return;
+        }
+
+        DialogResult result = MessageBox.Show(
+            "Are you sure you want to delete this computer?",
+            "Delete Confirmation",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Warning);
+
+        if (result != DialogResult.Yes)
+          return;
+
+        int id = Convert.ToInt32(
+            dgv_Computers.CurrentRow.Cells["Id"].Value);
+
+        Computer computer = _context.Computers.Find(id);
+
+        if (computer == null)
+        {
+          MessageBox.Show("Computer not found!");
+          return;
+        }
+
+        _context.Computers.Remove(computer);
+        _context.SaveChanges();
+
+        LoadData();
+        ClearComputerFields();
+
+        MessageBox.Show("Computer deleted successfully!");
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Delete error: " + ex.Message);
+      }
+    }
+
+    private void btn_PC_Search_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        string searchPc = tb_PC_PcNumber.Text.Trim().ToLower();
+        string searchStatus = tb_PC_Status.Text.Trim().ToLower();
+
+        dgv_Computers.DataSource = _context.Computers
+            .Where(c =>
+                (string.IsNullOrEmpty(searchPc) ||
+                 c.PcNumber.ToLower().Contains(searchPc))
+                &&
+                (string.IsNullOrEmpty(searchStatus) ||
+                 c.Status.ToLower().Contains(searchStatus))
+            )
+            .Select(c => new
+            {
+              c.Id,
+              c.PcNumber,
+              c.Status,
+              c.Specifications
+            })
+            .ToList();
+
+        dgv_Computers.Columns["Id"].Visible = false;
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Search error: " + ex.Message);
+      }
+    }
+    private void ClearComputerFields()
+    {
+      tb_PC_PcNumber.Clear();
+      tb_PC_Status.Clear();
+      tb_PC_Specifications.Clear();
+    }
+
+    private void btn_PC_Clear_Fields_Click(object sender, EventArgs e)
+    {
+      ClearComputerFields();
+    }
+
     // dgv_Games
     private void dgv_Games_CellClick(object sender, DataGridViewCellEventArgs e)
     {
@@ -484,6 +655,7 @@ namespace Management_Internet_Cafe.Forms
     {
 
     }
+
     // EXTRA CODE
 
 

@@ -33,6 +33,10 @@
       tab_Client = new TabPage();
       splitC_Clients = new SplitContainer();
       dgv_Clients = new DataGridView();
+      lb_CL_Email = new Label();
+      lb_CL_Phone_Number = new Label();
+      lb_CL_Last_Name = new Label();
+      lb_CL_First_Name = new Label();
       btn_CL_Clear_Data = new Button();
       btn_CL_Search = new Button();
       btn_CL_Delete = new Button();
@@ -45,6 +49,7 @@
       tab_Calculator = new TabPage();
       splitContainer1 = new SplitContainer();
       dgv_Computers = new DataGridView();
+      btn_PC_Clear_Fields = new Button();
       btn_PC_Search = new Button();
       btn_PC_Delete = new Button();
       btn_PC_Edit = new Button();
@@ -95,10 +100,9 @@
       appDbContextBindingSource = new BindingSource(components);
       appDbContextBindingSource1 = new BindingSource(components);
       appDbContextBindingSource2 = new BindingSource(components);
-      lb_CL_First_Name = new Label();
-      lb_CL_Last_Name = new Label();
-      lb_CL_Phone_Number = new Label();
-      lb_CL_Email = new Label();
+      lb_PC_PC_Number = new Label();
+      lb_PC_Status = new Label();
+      lb_PC_Specifications = new Label();
       tabControl_Test_Tabels.SuspendLayout();
       tab_Client.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)splitC_Clients).BeginInit();
@@ -207,6 +211,42 @@
       dgv_Clients.TabIndex = 0;
       dgv_Clients.CellClick += dgv_Clients_CellClick;
       // 
+      // lb_CL_Email
+      // 
+      lb_CL_Email.AutoSize = true;
+      lb_CL_Email.Location = new Point(151, 66);
+      lb_CL_Email.Name = "lb_CL_Email";
+      lb_CL_Email.Size = new Size(46, 20);
+      lb_CL_Email.TabIndex = 12;
+      lb_CL_Email.Text = "Email";
+      // 
+      // lb_CL_Phone_Number
+      // 
+      lb_CL_Phone_Number.AutoSize = true;
+      lb_CL_Phone_Number.Location = new Point(20, 66);
+      lb_CL_Phone_Number.Name = "lb_CL_Phone_Number";
+      lb_CL_Phone_Number.Size = new Size(108, 20);
+      lb_CL_Phone_Number.TabIndex = 11;
+      lb_CL_Phone_Number.Text = "Phone Number";
+      // 
+      // lb_CL_Last_Name
+      // 
+      lb_CL_Last_Name.AutoSize = true;
+      lb_CL_Last_Name.Location = new Point(151, 7);
+      lb_CL_Last_Name.Name = "lb_CL_Last_Name";
+      lb_CL_Last_Name.Size = new Size(79, 20);
+      lb_CL_Last_Name.TabIndex = 10;
+      lb_CL_Last_Name.Text = "Last Name";
+      // 
+      // lb_CL_First_Name
+      // 
+      lb_CL_First_Name.AutoSize = true;
+      lb_CL_First_Name.Location = new Point(20, 7);
+      lb_CL_First_Name.Name = "lb_CL_First_Name";
+      lb_CL_First_Name.Size = new Size(80, 20);
+      lb_CL_First_Name.TabIndex = 9;
+      lb_CL_First_Name.Text = "First Name";
+      // 
       // btn_CL_Clear_Data
       // 
       btn_CL_Clear_Data.Location = new Point(112, 139);
@@ -312,6 +352,10 @@
       // 
       // splitContainer1.Panel2
       // 
+      splitContainer1.Panel2.Controls.Add(lb_PC_Specifications);
+      splitContainer1.Panel2.Controls.Add(lb_PC_Status);
+      splitContainer1.Panel2.Controls.Add(lb_PC_PC_Number);
+      splitContainer1.Panel2.Controls.Add(btn_PC_Clear_Fields);
       splitContainer1.Panel2.Controls.Add(btn_PC_Search);
       splitContainer1.Panel2.Controls.Add(btn_PC_Delete);
       splitContainer1.Panel2.Controls.Add(btn_PC_Edit);
@@ -334,54 +378,68 @@
       dgv_Computers.TabIndex = 1;
       dgv_Computers.CellClick += dgv_Computers_CellClick;
       // 
+      // btn_PC_Clear_Fields
+      // 
+      btn_PC_Clear_Fields.Location = new Point(118, 266);
+      btn_PC_Clear_Fields.Name = "btn_PC_Clear_Fields";
+      btn_PC_Clear_Fields.Size = new Size(94, 29);
+      btn_PC_Clear_Fields.TabIndex = 16;
+      btn_PC_Clear_Fields.Text = "Clear Fields";
+      btn_PC_Clear_Fields.UseVisualStyleBackColor = true;
+      btn_PC_Clear_Fields.Click += btn_PC_Clear_Fields_Click;
+      // 
       // btn_PC_Search
       // 
-      btn_PC_Search.Location = new Point(118, 151);
+      btn_PC_Search.Location = new Point(118, 231);
       btn_PC_Search.Name = "btn_PC_Search";
       btn_PC_Search.Size = new Size(94, 29);
       btn_PC_Search.TabIndex = 15;
       btn_PC_Search.Text = "Search";
       btn_PC_Search.UseVisualStyleBackColor = true;
+      btn_PC_Search.Click += btn_PC_Search_Click;
       // 
       // btn_PC_Delete
       // 
-      btn_PC_Delete.Location = new Point(18, 151);
+      btn_PC_Delete.Location = new Point(18, 231);
       btn_PC_Delete.Name = "btn_PC_Delete";
       btn_PC_Delete.Size = new Size(94, 29);
       btn_PC_Delete.TabIndex = 14;
       btn_PC_Delete.Text = "Delete";
       btn_PC_Delete.UseVisualStyleBackColor = true;
+      btn_PC_Delete.Click += btn_PC_Delete_Click;
       // 
       // btn_PC_Edit
       // 
-      btn_PC_Edit.Location = new Point(118, 116);
+      btn_PC_Edit.Location = new Point(118, 196);
       btn_PC_Edit.Name = "btn_PC_Edit";
       btn_PC_Edit.Size = new Size(94, 29);
       btn_PC_Edit.TabIndex = 13;
       btn_PC_Edit.Text = "Edit";
       btn_PC_Edit.UseVisualStyleBackColor = true;
+      btn_PC_Edit.Click += btn_PC_Edit_Click;
       // 
       // btn_PC_Add
       // 
-      btn_PC_Add.Location = new Point(18, 116);
+      btn_PC_Add.Location = new Point(18, 196);
       btn_PC_Add.Name = "btn_PC_Add";
       btn_PC_Add.Size = new Size(94, 29);
       btn_PC_Add.TabIndex = 12;
       btn_PC_Add.Text = "Add";
       btn_PC_Add.UseVisualStyleBackColor = true;
+      btn_PC_Add.Click += btn_PC_Add_Click;
       // 
       // tb_PC_Specifications
       // 
-      tb_PC_Specifications.Location = new Point(18, 54);
+      tb_PC_Specifications.Location = new Point(18, 86);
       tb_PC_Specifications.Multiline = true;
       tb_PC_Specifications.Name = "tb_PC_Specifications";
       tb_PC_Specifications.PlaceholderText = "Specifications";
-      tb_PC_Specifications.Size = new Size(256, 56);
+      tb_PC_Specifications.Size = new Size(256, 104);
       tb_PC_Specifications.TabIndex = 10;
       // 
       // tb_PC_Status
       // 
-      tb_PC_Status.Location = new Point(149, 21);
+      tb_PC_Status.Location = new Point(163, 29);
       tb_PC_Status.Name = "tb_PC_Status";
       tb_PC_Status.PlaceholderText = "Status";
       tb_PC_Status.Size = new Size(125, 27);
@@ -389,7 +447,7 @@
       // 
       // tb_PC_PcNumber
       // 
-      tb_PC_PcNumber.Location = new Point(18, 21);
+      tb_PC_PcNumber.Location = new Point(18, 29);
       tb_PC_PcNumber.Name = "tb_PC_PcNumber";
       tb_PC_PcNumber.PlaceholderText = "PC Number";
       tb_PC_PcNumber.Size = new Size(125, 27);
@@ -831,41 +889,32 @@
       // 
       appDbContextBindingSource2.DataSource = typeof(Data.AppDbContext);
       // 
-      // lb_CL_First_Name
+      // lb_PC_PC_Number
       // 
-      lb_CL_First_Name.AutoSize = true;
-      lb_CL_First_Name.Location = new Point(20, 7);
-      lb_CL_First_Name.Name = "lb_CL_First_Name";
-      lb_CL_First_Name.Size = new Size(80, 20);
-      lb_CL_First_Name.TabIndex = 9;
-      lb_CL_First_Name.Text = "First Name";
+      lb_PC_PC_Number.AutoSize = true;
+      lb_PC_PC_Number.Location = new Point(18, 6);
+      lb_PC_PC_Number.Name = "lb_PC_PC_Number";
+      lb_PC_PC_Number.Size = new Size(133, 20);
+      lb_PC_PC_Number.TabIndex = 17;
+      lb_PC_PC_Number.Text = "Computer Number";
       // 
-      // lb_CL_Last_Name
+      // lb_PC_Status
       // 
-      lb_CL_Last_Name.AutoSize = true;
-      lb_CL_Last_Name.Location = new Point(151, 7);
-      lb_CL_Last_Name.Name = "lb_CL_Last_Name";
-      lb_CL_Last_Name.Size = new Size(79, 20);
-      lb_CL_Last_Name.TabIndex = 10;
-      lb_CL_Last_Name.Text = "Last Name";
+      lb_PC_Status.AutoSize = true;
+      lb_PC_Status.Location = new Point(163, 8);
+      lb_PC_Status.Name = "lb_PC_Status";
+      lb_PC_Status.Size = new Size(49, 20);
+      lb_PC_Status.TabIndex = 18;
+      lb_PC_Status.Text = "Status";
       // 
-      // lb_CL_Phone_Number
+      // lb_PC_Specifications
       // 
-      lb_CL_Phone_Number.AutoSize = true;
-      lb_CL_Phone_Number.Location = new Point(20, 66);
-      lb_CL_Phone_Number.Name = "lb_CL_Phone_Number";
-      lb_CL_Phone_Number.Size = new Size(108, 20);
-      lb_CL_Phone_Number.TabIndex = 11;
-      lb_CL_Phone_Number.Text = "Phone Number";
-      // 
-      // lb_CL_Email
-      // 
-      lb_CL_Email.AutoSize = true;
-      lb_CL_Email.Location = new Point(151, 66);
-      lb_CL_Email.Name = "lb_CL_Email";
-      lb_CL_Email.Size = new Size(46, 20);
-      lb_CL_Email.TabIndex = 12;
-      lb_CL_Email.Text = "Email";
+      lb_PC_Specifications.AutoSize = true;
+      lb_PC_Specifications.Location = new Point(18, 63);
+      lb_PC_Specifications.Name = "lb_PC_Specifications";
+      lb_PC_Specifications.Size = new Size(101, 20);
+      lb_PC_Specifications.TabIndex = 19;
+      lb_PC_Specifications.Text = "Specifications";
       // 
       // Simple_Data_Grid_View
       // 
@@ -1000,5 +1049,9 @@
     private Label lb_CL_Phone_Number;
     private Label lb_CL_Last_Name;
     private Label lb_CL_First_Name;
+    private Button btn_PC_Clear_Fields;
+    private Label lb_PC_Specifications;
+    private Label lb_PC_Status;
+    private Label lb_PC_PC_Number;
   }
 }
