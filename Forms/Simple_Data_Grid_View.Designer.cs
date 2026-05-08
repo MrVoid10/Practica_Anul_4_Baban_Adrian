@@ -33,58 +33,72 @@
       tab_Client = new TabPage();
       splitC_Clients = new SplitContainer();
       dgv_Clients = new DataGridView();
-      btn_Search = new Button();
-      btn_Delete = new Button();
-      btn_Edit = new Button();
-      btn_ADD = new Button();
-      tb_Email = new TextBox();
-      tb_Phone = new TextBox();
-      tb_LastName = new TextBox();
-      tb_FirstName = new TextBox();
+      btn_CL_Clear_Data = new Button();
+      btn_CL_Search = new Button();
+      btn_CL_Delete = new Button();
+      btn_CL_Edit = new Button();
+      btn_CL_Add = new Button();
+      tb_CL_Email = new TextBox();
+      tb_CL_Phone = new TextBox();
+      tb_CL_LastName = new TextBox();
+      tb_CL_FirstName = new TextBox();
       tab_Calculator = new TabPage();
       splitContainer1 = new SplitContainer();
       dgv_Computers = new DataGridView();
-      button1 = new Button();
-      button2 = new Button();
-      button3 = new Button();
-      button4 = new Button();
-      tb_Specifications = new TextBox();
-      tb_Status = new TextBox();
-      tb_PcNumber = new TextBox();
+      btn_PC_Search = new Button();
+      btn_PC_Delete = new Button();
+      btn_PC_Edit = new Button();
+      btn_PC_Add = new Button();
+      tb_PC_Specifications = new TextBox();
+      tb_PC_Status = new TextBox();
+      tb_PC_PcNumber = new TextBox();
       tab_Game = new TabPage();
       splitContainer2 = new SplitContainer();
       dgv_Games = new DataGridView();
-      button5 = new Button();
-      button6 = new Button();
-      button7 = new Button();
-      button8 = new Button();
-      tb_Game_Genre = new TextBox();
-      tb_Game_Name = new TextBox();
+      btn_GM_Search = new Button();
+      btn_GM_Delete = new Button();
+      btn_GM_Edit = new Button();
+      btn_GM_Add = new Button();
+      tb_GM_Genre = new TextBox();
+      tb_GM_Name = new TextBox();
       tab_Session_Games = new TabPage();
       splitContainer3 = new SplitContainer();
       dgv_Session_Game = new DataGridView();
-      button9 = new Button();
-      button10 = new Button();
-      button11 = new Button();
-      button12 = new Button();
-      textBox1 = new TextBox();
-      textBox2 = new TextBox();
-      textBox3 = new TextBox();
-      textBox4 = new TextBox();
+      btn_SG_Search = new Button();
+      btn_SG_Delete = new Button();
+      btn_SG_Edit = new Button();
+      btn_SG_Add = new Button();
+      tb_SG_GameID = new TextBox();
+      tb_SG_SessionID = new TextBox();
       tab_Payment = new TabPage();
       splitContainer4 = new SplitContainer();
       dgv_Payments = new DataGridView();
+      btn_PY_Search = new Button();
+      btn_PY_Delete = new Button();
+      btn_PY_Edit = new Button();
+      btn_PY_Add = new Button();
+      tb_PY_PaymentDate = new TextBox();
+      tb_PY_PaymentMethod = new TextBox();
+      tb_PY_Amount = new TextBox();
+      tb_PY_SessionID = new TextBox();
+      tab_Session = new TabPage();
+      splitContainer5 = new SplitContainer();
+      dgv_Session = new DataGridView();
+      btn_S_Search = new Button();
+      btn_S_Delete = new Button();
+      btn_S_Edit = new Button();
+      btn_S_Add = new Button();
+      tb_S_EndTime = new TextBox();
+      tb_S_StartTime = new TextBox();
+      tb_S_ComputerID = new TextBox();
+      tb_S_ClientID = new TextBox();
       appDbContextBindingSource = new BindingSource(components);
       appDbContextBindingSource1 = new BindingSource(components);
-      button13 = new Button();
-      button14 = new Button();
-      button15 = new Button();
-      button16 = new Button();
-      textBox5 = new TextBox();
-      textBox6 = new TextBox();
-      textBox7 = new TextBox();
-      textBox8 = new TextBox();
-      textBox9 = new TextBox();
+      appDbContextBindingSource2 = new BindingSource(components);
+      lb_CL_First_Name = new Label();
+      lb_CL_Last_Name = new Label();
+      lb_CL_Phone_Number = new Label();
+      lb_CL_Email = new Label();
       tabControl_Test_Tabels.SuspendLayout();
       tab_Client.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)splitC_Clients).BeginInit();
@@ -116,8 +130,15 @@
       splitContainer4.Panel2.SuspendLayout();
       splitContainer4.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)dgv_Payments).BeginInit();
+      tab_Session.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)splitContainer5).BeginInit();
+      splitContainer5.Panel1.SuspendLayout();
+      splitContainer5.Panel2.SuspendLayout();
+      splitContainer5.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)dgv_Session).BeginInit();
       ((System.ComponentModel.ISupportInitialize)appDbContextBindingSource).BeginInit();
       ((System.ComponentModel.ISupportInitialize)appDbContextBindingSource1).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)appDbContextBindingSource2).BeginInit();
       SuspendLayout();
       // 
       // tabControl_Test_Tabels
@@ -127,6 +148,7 @@
       tabControl_Test_Tabels.Controls.Add(tab_Game);
       tabControl_Test_Tabels.Controls.Add(tab_Session_Games);
       tabControl_Test_Tabels.Controls.Add(tab_Payment);
+      tabControl_Test_Tabels.Controls.Add(tab_Session);
       tabControl_Test_Tabels.Dock = DockStyle.Fill;
       tabControl_Test_Tabels.Location = new Point(0, 0);
       tabControl_Test_Tabels.Name = "tabControl_Test_Tabels";
@@ -157,14 +179,19 @@
       // 
       // splitC_Clients.Panel2
       // 
-      splitC_Clients.Panel2.Controls.Add(btn_Search);
-      splitC_Clients.Panel2.Controls.Add(btn_Delete);
-      splitC_Clients.Panel2.Controls.Add(btn_Edit);
-      splitC_Clients.Panel2.Controls.Add(btn_ADD);
-      splitC_Clients.Panel2.Controls.Add(tb_Email);
-      splitC_Clients.Panel2.Controls.Add(tb_Phone);
-      splitC_Clients.Panel2.Controls.Add(tb_LastName);
-      splitC_Clients.Panel2.Controls.Add(tb_FirstName);
+      splitC_Clients.Panel2.Controls.Add(lb_CL_Email);
+      splitC_Clients.Panel2.Controls.Add(lb_CL_Phone_Number);
+      splitC_Clients.Panel2.Controls.Add(lb_CL_Last_Name);
+      splitC_Clients.Panel2.Controls.Add(lb_CL_First_Name);
+      splitC_Clients.Panel2.Controls.Add(btn_CL_Clear_Data);
+      splitC_Clients.Panel2.Controls.Add(btn_CL_Search);
+      splitC_Clients.Panel2.Controls.Add(btn_CL_Delete);
+      splitC_Clients.Panel2.Controls.Add(btn_CL_Edit);
+      splitC_Clients.Panel2.Controls.Add(btn_CL_Add);
+      splitC_Clients.Panel2.Controls.Add(tb_CL_Email);
+      splitC_Clients.Panel2.Controls.Add(tb_CL_Phone);
+      splitC_Clients.Panel2.Controls.Add(tb_CL_LastName);
+      splitC_Clients.Panel2.Controls.Add(tb_CL_FirstName);
       splitC_Clients.Size = new Size(928, 494);
       splitC_Clients.SplitterDistance = 621;
       splitC_Clients.TabIndex = 1;
@@ -178,74 +205,89 @@
       dgv_Clients.RowHeadersWidth = 51;
       dgv_Clients.Size = new Size(621, 494);
       dgv_Clients.TabIndex = 0;
+      dgv_Clients.CellClick += dgv_Clients_CellClick;
       // 
-      // btn_Search
+      // btn_CL_Clear_Data
       // 
-      btn_Search.Location = new Point(120, 148);
-      btn_Search.Name = "btn_Search";
-      btn_Search.Size = new Size(94, 29);
-      btn_Search.TabIndex = 7;
-      btn_Search.Text = "Search";
-      btn_Search.UseVisualStyleBackColor = true;
+      btn_CL_Clear_Data.Location = new Point(112, 139);
+      btn_CL_Clear_Data.Name = "btn_CL_Clear_Data";
+      btn_CL_Clear_Data.Size = new Size(164, 29);
+      btn_CL_Clear_Data.TabIndex = 8;
+      btn_CL_Clear_Data.Text = "Clear Selected Data";
+      btn_CL_Clear_Data.UseVisualStyleBackColor = true;
+      btn_CL_Clear_Data.Click += btn_CL_Clear_Data_Click;
       // 
-      // btn_Delete
+      // btn_CL_Search
       // 
-      btn_Delete.Location = new Point(20, 148);
-      btn_Delete.Name = "btn_Delete";
-      btn_Delete.Size = new Size(94, 29);
-      btn_Delete.TabIndex = 6;
-      btn_Delete.Text = "Delete";
-      btn_Delete.UseVisualStyleBackColor = true;
+      btn_CL_Search.Location = new Point(120, 209);
+      btn_CL_Search.Name = "btn_CL_Search";
+      btn_CL_Search.Size = new Size(94, 29);
+      btn_CL_Search.TabIndex = 7;
+      btn_CL_Search.Text = "Search";
+      btn_CL_Search.UseVisualStyleBackColor = true;
+      btn_CL_Search.Click += btn_CL_Search_Click;
       // 
-      // btn_Edit
+      // btn_CL_Delete
       // 
-      btn_Edit.Location = new Point(120, 113);
-      btn_Edit.Name = "btn_Edit";
-      btn_Edit.Size = new Size(94, 29);
-      btn_Edit.TabIndex = 5;
-      btn_Edit.Text = "Edit";
-      btn_Edit.UseVisualStyleBackColor = true;
+      btn_CL_Delete.Location = new Point(20, 209);
+      btn_CL_Delete.Name = "btn_CL_Delete";
+      btn_CL_Delete.Size = new Size(94, 29);
+      btn_CL_Delete.TabIndex = 6;
+      btn_CL_Delete.Text = "Delete";
+      btn_CL_Delete.UseVisualStyleBackColor = true;
+      btn_CL_Delete.Click += btn_CL_Delete_Click;
       // 
-      // btn_ADD
+      // btn_CL_Edit
       // 
-      btn_ADD.Location = new Point(20, 113);
-      btn_ADD.Name = "btn_ADD";
-      btn_ADD.Size = new Size(94, 29);
-      btn_ADD.TabIndex = 4;
-      btn_ADD.Text = "Add";
-      btn_ADD.UseVisualStyleBackColor = true;
+      btn_CL_Edit.Location = new Point(120, 174);
+      btn_CL_Edit.Name = "btn_CL_Edit";
+      btn_CL_Edit.Size = new Size(94, 29);
+      btn_CL_Edit.TabIndex = 5;
+      btn_CL_Edit.Text = "Edit";
+      btn_CL_Edit.UseVisualStyleBackColor = true;
+      btn_CL_Edit.Click += btn_CL_Edit_Click;
       // 
-      // tb_Email
+      // btn_CL_Add
       // 
-      tb_Email.Location = new Point(151, 51);
-      tb_Email.Name = "tb_Email";
-      tb_Email.PlaceholderText = "Email";
-      tb_Email.Size = new Size(125, 27);
-      tb_Email.TabIndex = 3;
+      btn_CL_Add.Location = new Point(20, 174);
+      btn_CL_Add.Name = "btn_CL_Add";
+      btn_CL_Add.Size = new Size(94, 29);
+      btn_CL_Add.TabIndex = 4;
+      btn_CL_Add.Text = "Add";
+      btn_CL_Add.UseVisualStyleBackColor = true;
+      btn_CL_Add.Click += btn_CL_Add_Click;
       // 
-      // tb_Phone
+      // tb_CL_Email
       // 
-      tb_Phone.Location = new Point(20, 51);
-      tb_Phone.Name = "tb_Phone";
-      tb_Phone.PlaceholderText = "Phone Number";
-      tb_Phone.Size = new Size(125, 27);
-      tb_Phone.TabIndex = 2;
+      tb_CL_Email.Location = new Point(151, 89);
+      tb_CL_Email.Name = "tb_CL_Email";
+      tb_CL_Email.PlaceholderText = "Email";
+      tb_CL_Email.Size = new Size(125, 27);
+      tb_CL_Email.TabIndex = 3;
       // 
-      // tb_LastName
+      // tb_CL_Phone
       // 
-      tb_LastName.Location = new Point(151, 18);
-      tb_LastName.Name = "tb_LastName";
-      tb_LastName.PlaceholderText = "Last Name";
-      tb_LastName.Size = new Size(125, 27);
-      tb_LastName.TabIndex = 1;
+      tb_CL_Phone.Location = new Point(20, 89);
+      tb_CL_Phone.Name = "tb_CL_Phone";
+      tb_CL_Phone.PlaceholderText = "Phone Number";
+      tb_CL_Phone.Size = new Size(125, 27);
+      tb_CL_Phone.TabIndex = 2;
       // 
-      // tb_FirstName
+      // tb_CL_LastName
       // 
-      tb_FirstName.Location = new Point(20, 18);
-      tb_FirstName.Name = "tb_FirstName";
-      tb_FirstName.PlaceholderText = "First Name";
-      tb_FirstName.Size = new Size(125, 27);
-      tb_FirstName.TabIndex = 0;
+      tb_CL_LastName.Location = new Point(151, 30);
+      tb_CL_LastName.Name = "tb_CL_LastName";
+      tb_CL_LastName.PlaceholderText = "Last Name";
+      tb_CL_LastName.Size = new Size(125, 27);
+      tb_CL_LastName.TabIndex = 1;
+      // 
+      // tb_CL_FirstName
+      // 
+      tb_CL_FirstName.Location = new Point(20, 30);
+      tb_CL_FirstName.Name = "tb_CL_FirstName";
+      tb_CL_FirstName.PlaceholderText = "First Name";
+      tb_CL_FirstName.Size = new Size(125, 27);
+      tb_CL_FirstName.TabIndex = 0;
       // 
       // tab_Calculator
       // 
@@ -270,13 +312,13 @@
       // 
       // splitContainer1.Panel2
       // 
-      splitContainer1.Panel2.Controls.Add(button1);
-      splitContainer1.Panel2.Controls.Add(button2);
-      splitContainer1.Panel2.Controls.Add(button3);
-      splitContainer1.Panel2.Controls.Add(button4);
-      splitContainer1.Panel2.Controls.Add(tb_Specifications);
-      splitContainer1.Panel2.Controls.Add(tb_Status);
-      splitContainer1.Panel2.Controls.Add(tb_PcNumber);
+      splitContainer1.Panel2.Controls.Add(btn_PC_Search);
+      splitContainer1.Panel2.Controls.Add(btn_PC_Delete);
+      splitContainer1.Panel2.Controls.Add(btn_PC_Edit);
+      splitContainer1.Panel2.Controls.Add(btn_PC_Add);
+      splitContainer1.Panel2.Controls.Add(tb_PC_Specifications);
+      splitContainer1.Panel2.Controls.Add(tb_PC_Status);
+      splitContainer1.Panel2.Controls.Add(tb_PC_PcNumber);
       splitContainer1.Size = new Size(928, 494);
       splitContainer1.SplitterDistance = 621;
       splitContainer1.TabIndex = 2;
@@ -290,67 +332,68 @@
       dgv_Computers.RowHeadersWidth = 51;
       dgv_Computers.Size = new Size(621, 494);
       dgv_Computers.TabIndex = 1;
+      dgv_Computers.CellClick += dgv_Computers_CellClick;
       // 
-      // button1
+      // btn_PC_Search
       // 
-      button1.Location = new Point(118, 151);
-      button1.Name = "button1";
-      button1.Size = new Size(94, 29);
-      button1.TabIndex = 15;
-      button1.Text = "Search";
-      button1.UseVisualStyleBackColor = true;
+      btn_PC_Search.Location = new Point(118, 151);
+      btn_PC_Search.Name = "btn_PC_Search";
+      btn_PC_Search.Size = new Size(94, 29);
+      btn_PC_Search.TabIndex = 15;
+      btn_PC_Search.Text = "Search";
+      btn_PC_Search.UseVisualStyleBackColor = true;
       // 
-      // button2
+      // btn_PC_Delete
       // 
-      button2.Location = new Point(18, 151);
-      button2.Name = "button2";
-      button2.Size = new Size(94, 29);
-      button2.TabIndex = 14;
-      button2.Text = "Delete";
-      button2.UseVisualStyleBackColor = true;
+      btn_PC_Delete.Location = new Point(18, 151);
+      btn_PC_Delete.Name = "btn_PC_Delete";
+      btn_PC_Delete.Size = new Size(94, 29);
+      btn_PC_Delete.TabIndex = 14;
+      btn_PC_Delete.Text = "Delete";
+      btn_PC_Delete.UseVisualStyleBackColor = true;
       // 
-      // button3
+      // btn_PC_Edit
       // 
-      button3.Location = new Point(118, 116);
-      button3.Name = "button3";
-      button3.Size = new Size(94, 29);
-      button3.TabIndex = 13;
-      button3.Text = "Edit";
-      button3.UseVisualStyleBackColor = true;
+      btn_PC_Edit.Location = new Point(118, 116);
+      btn_PC_Edit.Name = "btn_PC_Edit";
+      btn_PC_Edit.Size = new Size(94, 29);
+      btn_PC_Edit.TabIndex = 13;
+      btn_PC_Edit.Text = "Edit";
+      btn_PC_Edit.UseVisualStyleBackColor = true;
       // 
-      // button4
+      // btn_PC_Add
       // 
-      button4.Location = new Point(18, 116);
-      button4.Name = "button4";
-      button4.Size = new Size(94, 29);
-      button4.TabIndex = 12;
-      button4.Text = "Add";
-      button4.UseVisualStyleBackColor = true;
+      btn_PC_Add.Location = new Point(18, 116);
+      btn_PC_Add.Name = "btn_PC_Add";
+      btn_PC_Add.Size = new Size(94, 29);
+      btn_PC_Add.TabIndex = 12;
+      btn_PC_Add.Text = "Add";
+      btn_PC_Add.UseVisualStyleBackColor = true;
       // 
-      // tb_Specifications
+      // tb_PC_Specifications
       // 
-      tb_Specifications.Location = new Point(18, 54);
-      tb_Specifications.Multiline = true;
-      tb_Specifications.Name = "tb_Specifications";
-      tb_Specifications.PlaceholderText = "Specifications";
-      tb_Specifications.Size = new Size(256, 56);
-      tb_Specifications.TabIndex = 10;
+      tb_PC_Specifications.Location = new Point(18, 54);
+      tb_PC_Specifications.Multiline = true;
+      tb_PC_Specifications.Name = "tb_PC_Specifications";
+      tb_PC_Specifications.PlaceholderText = "Specifications";
+      tb_PC_Specifications.Size = new Size(256, 56);
+      tb_PC_Specifications.TabIndex = 10;
       // 
-      // tb_Status
+      // tb_PC_Status
       // 
-      tb_Status.Location = new Point(149, 21);
-      tb_Status.Name = "tb_Status";
-      tb_Status.PlaceholderText = "Status";
-      tb_Status.Size = new Size(125, 27);
-      tb_Status.TabIndex = 9;
+      tb_PC_Status.Location = new Point(149, 21);
+      tb_PC_Status.Name = "tb_PC_Status";
+      tb_PC_Status.PlaceholderText = "Status";
+      tb_PC_Status.Size = new Size(125, 27);
+      tb_PC_Status.TabIndex = 9;
       // 
-      // tb_PcNumber
+      // tb_PC_PcNumber
       // 
-      tb_PcNumber.Location = new Point(18, 21);
-      tb_PcNumber.Name = "tb_PcNumber";
-      tb_PcNumber.PlaceholderText = "PC Number";
-      tb_PcNumber.Size = new Size(125, 27);
-      tb_PcNumber.TabIndex = 8;
+      tb_PC_PcNumber.Location = new Point(18, 21);
+      tb_PC_PcNumber.Name = "tb_PC_PcNumber";
+      tb_PC_PcNumber.PlaceholderText = "PC Number";
+      tb_PC_PcNumber.Size = new Size(125, 27);
+      tb_PC_PcNumber.TabIndex = 8;
       // 
       // tab_Game
       // 
@@ -375,12 +418,12 @@
       // 
       // splitContainer2.Panel2
       // 
-      splitContainer2.Panel2.Controls.Add(button5);
-      splitContainer2.Panel2.Controls.Add(button6);
-      splitContainer2.Panel2.Controls.Add(button7);
-      splitContainer2.Panel2.Controls.Add(button8);
-      splitContainer2.Panel2.Controls.Add(tb_Game_Genre);
-      splitContainer2.Panel2.Controls.Add(tb_Game_Name);
+      splitContainer2.Panel2.Controls.Add(btn_GM_Search);
+      splitContainer2.Panel2.Controls.Add(btn_GM_Delete);
+      splitContainer2.Panel2.Controls.Add(btn_GM_Edit);
+      splitContainer2.Panel2.Controls.Add(btn_GM_Add);
+      splitContainer2.Panel2.Controls.Add(tb_GM_Genre);
+      splitContainer2.Panel2.Controls.Add(tb_GM_Name);
       splitContainer2.Size = new Size(928, 494);
       splitContainer2.SplitterDistance = 619;
       splitContainer2.TabIndex = 3;
@@ -394,58 +437,59 @@
       dgv_Games.RowHeadersWidth = 51;
       dgv_Games.Size = new Size(619, 494);
       dgv_Games.TabIndex = 2;
+      dgv_Games.CellClick += dgv_Games_CellClick;
       // 
-      // button5
+      // btn_GM_Search
       // 
-      button5.Location = new Point(118, 149);
-      button5.Name = "button5";
-      button5.Size = new Size(94, 29);
-      button5.TabIndex = 22;
-      button5.Text = "Search";
-      button5.UseVisualStyleBackColor = true;
+      btn_GM_Search.Location = new Point(118, 149);
+      btn_GM_Search.Name = "btn_GM_Search";
+      btn_GM_Search.Size = new Size(94, 29);
+      btn_GM_Search.TabIndex = 22;
+      btn_GM_Search.Text = "Search";
+      btn_GM_Search.UseVisualStyleBackColor = true;
       // 
-      // button6
+      // btn_GM_Delete
       // 
-      button6.Location = new Point(18, 149);
-      button6.Name = "button6";
-      button6.Size = new Size(94, 29);
-      button6.TabIndex = 21;
-      button6.Text = "Delete";
-      button6.UseVisualStyleBackColor = true;
+      btn_GM_Delete.Location = new Point(18, 149);
+      btn_GM_Delete.Name = "btn_GM_Delete";
+      btn_GM_Delete.Size = new Size(94, 29);
+      btn_GM_Delete.TabIndex = 21;
+      btn_GM_Delete.Text = "Delete";
+      btn_GM_Delete.UseVisualStyleBackColor = true;
       // 
-      // button7
+      // btn_GM_Edit
       // 
-      button7.Location = new Point(118, 114);
-      button7.Name = "button7";
-      button7.Size = new Size(94, 29);
-      button7.TabIndex = 20;
-      button7.Text = "Edit";
-      button7.UseVisualStyleBackColor = true;
+      btn_GM_Edit.Location = new Point(118, 114);
+      btn_GM_Edit.Name = "btn_GM_Edit";
+      btn_GM_Edit.Size = new Size(94, 29);
+      btn_GM_Edit.TabIndex = 20;
+      btn_GM_Edit.Text = "Edit";
+      btn_GM_Edit.UseVisualStyleBackColor = true;
       // 
-      // button8
+      // btn_GM_Add
       // 
-      button8.Location = new Point(18, 114);
-      button8.Name = "button8";
-      button8.Size = new Size(94, 29);
-      button8.TabIndex = 19;
-      button8.Text = "Add";
-      button8.UseVisualStyleBackColor = true;
+      btn_GM_Add.Location = new Point(18, 114);
+      btn_GM_Add.Name = "btn_GM_Add";
+      btn_GM_Add.Size = new Size(94, 29);
+      btn_GM_Add.TabIndex = 19;
+      btn_GM_Add.Text = "Add";
+      btn_GM_Add.UseVisualStyleBackColor = true;
       // 
-      // tb_Game_Genre
+      // tb_GM_Genre
       // 
-      tb_Game_Genre.Location = new Point(149, 19);
-      tb_Game_Genre.Name = "tb_Game_Genre";
-      tb_Game_Genre.PlaceholderText = "Genre";
-      tb_Game_Genre.Size = new Size(125, 27);
-      tb_Game_Genre.TabIndex = 17;
+      tb_GM_Genre.Location = new Point(149, 19);
+      tb_GM_Genre.Name = "tb_GM_Genre";
+      tb_GM_Genre.PlaceholderText = "Genre";
+      tb_GM_Genre.Size = new Size(125, 27);
+      tb_GM_Genre.TabIndex = 17;
       // 
-      // tb_Game_Name
+      // tb_GM_Name
       // 
-      tb_Game_Name.Location = new Point(18, 19);
-      tb_Game_Name.Name = "tb_Game_Name";
-      tb_Game_Name.PlaceholderText = "Name";
-      tb_Game_Name.Size = new Size(125, 27);
-      tb_Game_Name.TabIndex = 16;
+      tb_GM_Name.Location = new Point(18, 19);
+      tb_GM_Name.Name = "tb_GM_Name";
+      tb_GM_Name.PlaceholderText = "Name";
+      tb_GM_Name.Size = new Size(125, 27);
+      tb_GM_Name.TabIndex = 16;
       // 
       // tab_Session_Games
       // 
@@ -470,14 +514,12 @@
       // 
       // splitContainer3.Panel2
       // 
-      splitContainer3.Panel2.Controls.Add(button9);
-      splitContainer3.Panel2.Controls.Add(button10);
-      splitContainer3.Panel2.Controls.Add(button11);
-      splitContainer3.Panel2.Controls.Add(button12);
-      splitContainer3.Panel2.Controls.Add(textBox1);
-      splitContainer3.Panel2.Controls.Add(textBox2);
-      splitContainer3.Panel2.Controls.Add(textBox3);
-      splitContainer3.Panel2.Controls.Add(textBox4);
+      splitContainer3.Panel2.Controls.Add(btn_SG_Search);
+      splitContainer3.Panel2.Controls.Add(btn_SG_Delete);
+      splitContainer3.Panel2.Controls.Add(btn_SG_Edit);
+      splitContainer3.Panel2.Controls.Add(btn_SG_Add);
+      splitContainer3.Panel2.Controls.Add(tb_SG_GameID);
+      splitContainer3.Panel2.Controls.Add(tb_SG_SessionID);
       splitContainer3.Size = new Size(928, 494);
       splitContainer3.SplitterDistance = 619;
       splitContainer3.TabIndex = 3;
@@ -491,74 +533,59 @@
       dgv_Session_Game.RowHeadersWidth = 51;
       dgv_Session_Game.Size = new Size(619, 494);
       dgv_Session_Game.TabIndex = 2;
+      dgv_Session_Game.CellClick += dgv_Session_Game_CellClick;
       // 
-      // button9
+      // btn_SG_Search
       // 
-      button9.Location = new Point(124, 147);
-      button9.Name = "button9";
-      button9.Size = new Size(94, 29);
-      button9.TabIndex = 15;
-      button9.Text = "Search";
-      button9.UseVisualStyleBackColor = true;
+      btn_SG_Search.Location = new Point(124, 147);
+      btn_SG_Search.Name = "btn_SG_Search";
+      btn_SG_Search.Size = new Size(94, 29);
+      btn_SG_Search.TabIndex = 15;
+      btn_SG_Search.Text = "Search";
+      btn_SG_Search.UseVisualStyleBackColor = true;
       // 
-      // button10
+      // btn_SG_Delete
       // 
-      button10.Location = new Point(24, 147);
-      button10.Name = "button10";
-      button10.Size = new Size(94, 29);
-      button10.TabIndex = 14;
-      button10.Text = "Delete";
-      button10.UseVisualStyleBackColor = true;
+      btn_SG_Delete.Location = new Point(24, 147);
+      btn_SG_Delete.Name = "btn_SG_Delete";
+      btn_SG_Delete.Size = new Size(94, 29);
+      btn_SG_Delete.TabIndex = 14;
+      btn_SG_Delete.Text = "Delete";
+      btn_SG_Delete.UseVisualStyleBackColor = true;
       // 
-      // button11
+      // btn_SG_Edit
       // 
-      button11.Location = new Point(124, 112);
-      button11.Name = "button11";
-      button11.Size = new Size(94, 29);
-      button11.TabIndex = 13;
-      button11.Text = "Edit";
-      button11.UseVisualStyleBackColor = true;
+      btn_SG_Edit.Location = new Point(124, 112);
+      btn_SG_Edit.Name = "btn_SG_Edit";
+      btn_SG_Edit.Size = new Size(94, 29);
+      btn_SG_Edit.TabIndex = 13;
+      btn_SG_Edit.Text = "Edit";
+      btn_SG_Edit.UseVisualStyleBackColor = true;
       // 
-      // button12
+      // btn_SG_Add
       // 
-      button12.Location = new Point(24, 112);
-      button12.Name = "button12";
-      button12.Size = new Size(94, 29);
-      button12.TabIndex = 12;
-      button12.Text = "Add";
-      button12.UseVisualStyleBackColor = true;
+      btn_SG_Add.Location = new Point(24, 112);
+      btn_SG_Add.Name = "btn_SG_Add";
+      btn_SG_Add.Size = new Size(94, 29);
+      btn_SG_Add.TabIndex = 12;
+      btn_SG_Add.Text = "Add";
+      btn_SG_Add.UseVisualStyleBackColor = true;
       // 
-      // textBox1
+      // tb_SG_GameID
       // 
-      textBox1.Location = new Point(155, 50);
-      textBox1.Name = "textBox1";
-      textBox1.PlaceholderText = "Game";
-      textBox1.Size = new Size(125, 27);
-      textBox1.TabIndex = 11;
+      tb_SG_GameID.Location = new Point(155, 17);
+      tb_SG_GameID.Name = "tb_SG_GameID";
+      tb_SG_GameID.PlaceholderText = "GameId";
+      tb_SG_GameID.Size = new Size(125, 27);
+      tb_SG_GameID.TabIndex = 9;
       // 
-      // textBox2
+      // tb_SG_SessionID
       // 
-      textBox2.Location = new Point(24, 50);
-      textBox2.Name = "textBox2";
-      textBox2.PlaceholderText = "Session";
-      textBox2.Size = new Size(125, 27);
-      textBox2.TabIndex = 10;
-      // 
-      // textBox3
-      // 
-      textBox3.Location = new Point(155, 17);
-      textBox3.Name = "textBox3";
-      textBox3.PlaceholderText = "GameId";
-      textBox3.Size = new Size(125, 27);
-      textBox3.TabIndex = 9;
-      // 
-      // textBox4
-      // 
-      textBox4.Location = new Point(24, 17);
-      textBox4.Name = "textBox4";
-      textBox4.PlaceholderText = "SessionId";
-      textBox4.Size = new Size(125, 27);
-      textBox4.TabIndex = 8;
+      tb_SG_SessionID.Location = new Point(24, 17);
+      tb_SG_SessionID.Name = "tb_SG_SessionID";
+      tb_SG_SessionID.PlaceholderText = "SessionId";
+      tb_SG_SessionID.Size = new Size(125, 27);
+      tb_SG_SessionID.TabIndex = 8;
       // 
       // tab_Payment
       // 
@@ -583,15 +610,14 @@
       // 
       // splitContainer4.Panel2
       // 
-      splitContainer4.Panel2.Controls.Add(textBox9);
-      splitContainer4.Panel2.Controls.Add(button13);
-      splitContainer4.Panel2.Controls.Add(button14);
-      splitContainer4.Panel2.Controls.Add(button15);
-      splitContainer4.Panel2.Controls.Add(button16);
-      splitContainer4.Panel2.Controls.Add(textBox5);
-      splitContainer4.Panel2.Controls.Add(textBox6);
-      splitContainer4.Panel2.Controls.Add(textBox7);
-      splitContainer4.Panel2.Controls.Add(textBox8);
+      splitContainer4.Panel2.Controls.Add(btn_PY_Search);
+      splitContainer4.Panel2.Controls.Add(btn_PY_Delete);
+      splitContainer4.Panel2.Controls.Add(btn_PY_Edit);
+      splitContainer4.Panel2.Controls.Add(btn_PY_Add);
+      splitContainer4.Panel2.Controls.Add(tb_PY_PaymentDate);
+      splitContainer4.Panel2.Controls.Add(tb_PY_PaymentMethod);
+      splitContainer4.Panel2.Controls.Add(tb_PY_Amount);
+      splitContainer4.Panel2.Controls.Add(tb_PY_SessionID);
       splitContainer4.Size = new Size(928, 494);
       splitContainer4.SplitterDistance = 619;
       splitContainer4.TabIndex = 3;
@@ -605,6 +631,193 @@
       dgv_Payments.RowHeadersWidth = 51;
       dgv_Payments.Size = new Size(619, 494);
       dgv_Payments.TabIndex = 2;
+      dgv_Payments.CellClick += dgv_Payments_CellClick;
+      // 
+      // btn_PY_Search
+      // 
+      btn_PY_Search.Location = new Point(123, 198);
+      btn_PY_Search.Name = "btn_PY_Search";
+      btn_PY_Search.Size = new Size(94, 29);
+      btn_PY_Search.TabIndex = 15;
+      btn_PY_Search.Text = "Search";
+      btn_PY_Search.UseVisualStyleBackColor = true;
+      // 
+      // btn_PY_Delete
+      // 
+      btn_PY_Delete.Location = new Point(23, 198);
+      btn_PY_Delete.Name = "btn_PY_Delete";
+      btn_PY_Delete.Size = new Size(94, 29);
+      btn_PY_Delete.TabIndex = 14;
+      btn_PY_Delete.Text = "Delete";
+      btn_PY_Delete.UseVisualStyleBackColor = true;
+      // 
+      // btn_PY_Edit
+      // 
+      btn_PY_Edit.Location = new Point(123, 163);
+      btn_PY_Edit.Name = "btn_PY_Edit";
+      btn_PY_Edit.Size = new Size(94, 29);
+      btn_PY_Edit.TabIndex = 13;
+      btn_PY_Edit.Text = "Edit";
+      btn_PY_Edit.UseVisualStyleBackColor = true;
+      // 
+      // btn_PY_Add
+      // 
+      btn_PY_Add.Location = new Point(23, 163);
+      btn_PY_Add.Name = "btn_PY_Add";
+      btn_PY_Add.Size = new Size(94, 29);
+      btn_PY_Add.TabIndex = 12;
+      btn_PY_Add.Text = "Add";
+      btn_PY_Add.UseVisualStyleBackColor = true;
+      // 
+      // tb_PY_PaymentDate
+      // 
+      tb_PY_PaymentDate.Location = new Point(154, 64);
+      tb_PY_PaymentDate.Name = "tb_PY_PaymentDate";
+      tb_PY_PaymentDate.PlaceholderText = "PaymentDate";
+      tb_PY_PaymentDate.Size = new Size(125, 27);
+      tb_PY_PaymentDate.TabIndex = 11;
+      // 
+      // tb_PY_PaymentMethod
+      // 
+      tb_PY_PaymentMethod.Location = new Point(23, 64);
+      tb_PY_PaymentMethod.Name = "tb_PY_PaymentMethod";
+      tb_PY_PaymentMethod.PlaceholderText = "PaymentMethod";
+      tb_PY_PaymentMethod.Size = new Size(125, 27);
+      tb_PY_PaymentMethod.TabIndex = 10;
+      // 
+      // tb_PY_Amount
+      // 
+      tb_PY_Amount.Location = new Point(154, 31);
+      tb_PY_Amount.Name = "tb_PY_Amount";
+      tb_PY_Amount.PlaceholderText = "Amount";
+      tb_PY_Amount.Size = new Size(125, 27);
+      tb_PY_Amount.TabIndex = 9;
+      // 
+      // tb_PY_SessionID
+      // 
+      tb_PY_SessionID.Location = new Point(23, 31);
+      tb_PY_SessionID.Name = "tb_PY_SessionID";
+      tb_PY_SessionID.PlaceholderText = "SessionID";
+      tb_PY_SessionID.Size = new Size(125, 27);
+      tb_PY_SessionID.TabIndex = 8;
+      // 
+      // tab_Session
+      // 
+      tab_Session.Controls.Add(splitContainer5);
+      tab_Session.Location = new Point(4, 29);
+      tab_Session.Name = "tab_Session";
+      tab_Session.Padding = new Padding(3);
+      tab_Session.Size = new Size(934, 500);
+      tab_Session.TabIndex = 5;
+      tab_Session.Text = "Sessions";
+      tab_Session.UseVisualStyleBackColor = true;
+      // 
+      // splitContainer5
+      // 
+      splitContainer5.Dock = DockStyle.Fill;
+      splitContainer5.Location = new Point(3, 3);
+      splitContainer5.Name = "splitContainer5";
+      // 
+      // splitContainer5.Panel1
+      // 
+      splitContainer5.Panel1.Controls.Add(dgv_Session);
+      // 
+      // splitContainer5.Panel2
+      // 
+      splitContainer5.Panel2.Controls.Add(btn_S_Search);
+      splitContainer5.Panel2.Controls.Add(btn_S_Delete);
+      splitContainer5.Panel2.Controls.Add(btn_S_Edit);
+      splitContainer5.Panel2.Controls.Add(btn_S_Add);
+      splitContainer5.Panel2.Controls.Add(tb_S_EndTime);
+      splitContainer5.Panel2.Controls.Add(tb_S_StartTime);
+      splitContainer5.Panel2.Controls.Add(tb_S_ComputerID);
+      splitContainer5.Panel2.Controls.Add(tb_S_ClientID);
+      splitContainer5.Size = new Size(928, 494);
+      splitContainer5.SplitterDistance = 661;
+      splitContainer5.TabIndex = 0;
+      // 
+      // dgv_Session
+      // 
+      dgv_Session.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+      dgv_Session.Dock = DockStyle.Fill;
+      dgv_Session.Location = new Point(0, 0);
+      dgv_Session.Name = "dgv_Session";
+      dgv_Session.RowHeadersWidth = 51;
+      dgv_Session.Size = new Size(661, 494);
+      dgv_Session.TabIndex = 0;
+      dgv_Session.CellClick += dgv_Sessions_CellClick;
+      // 
+      // btn_S_Search
+      // 
+      btn_S_Search.Location = new Point(103, 119);
+      btn_S_Search.Name = "btn_S_Search";
+      btn_S_Search.Size = new Size(94, 29);
+      btn_S_Search.TabIndex = 23;
+      btn_S_Search.Text = "Search";
+      btn_S_Search.UseVisualStyleBackColor = true;
+      btn_S_Search.Click += btn_S_Search_Click;
+      // 
+      // btn_S_Delete
+      // 
+      btn_S_Delete.Location = new Point(3, 119);
+      btn_S_Delete.Name = "btn_S_Delete";
+      btn_S_Delete.Size = new Size(94, 29);
+      btn_S_Delete.TabIndex = 22;
+      btn_S_Delete.Text = "Delete";
+      btn_S_Delete.UseVisualStyleBackColor = true;
+      btn_S_Delete.Click += btn_S_Delete_Click;
+      // 
+      // btn_S_Edit
+      // 
+      btn_S_Edit.Location = new Point(103, 84);
+      btn_S_Edit.Name = "btn_S_Edit";
+      btn_S_Edit.Size = new Size(94, 29);
+      btn_S_Edit.TabIndex = 21;
+      btn_S_Edit.Text = "Edit";
+      btn_S_Edit.UseVisualStyleBackColor = true;
+      btn_S_Edit.Click += btn_S_Edit_Click;
+      // 
+      // btn_S_Add
+      // 
+      btn_S_Add.Location = new Point(3, 84);
+      btn_S_Add.Name = "btn_S_Add";
+      btn_S_Add.Size = new Size(94, 29);
+      btn_S_Add.TabIndex = 20;
+      btn_S_Add.Text = "Add";
+      btn_S_Add.UseVisualStyleBackColor = true;
+      btn_S_Add.Click += btn_S_Add_Click;
+      // 
+      // tb_S_EndTime
+      // 
+      tb_S_EndTime.Location = new Point(134, 36);
+      tb_S_EndTime.Name = "tb_S_EndTime";
+      tb_S_EndTime.PlaceholderText = "End Time";
+      tb_S_EndTime.Size = new Size(125, 27);
+      tb_S_EndTime.TabIndex = 19;
+      // 
+      // tb_S_StartTime
+      // 
+      tb_S_StartTime.Location = new Point(3, 36);
+      tb_S_StartTime.Name = "tb_S_StartTime";
+      tb_S_StartTime.PlaceholderText = "Start Time";
+      tb_S_StartTime.Size = new Size(125, 27);
+      tb_S_StartTime.TabIndex = 18;
+      // 
+      // tb_S_ComputerID
+      // 
+      tb_S_ComputerID.Location = new Point(134, 3);
+      tb_S_ComputerID.Name = "tb_S_ComputerID";
+      tb_S_ComputerID.PlaceholderText = "ComputerID";
+      tb_S_ComputerID.Size = new Size(125, 27);
+      tb_S_ComputerID.TabIndex = 17;
+      // 
+      // tb_S_ClientID
+      // 
+      tb_S_ClientID.Location = new Point(3, 3);
+      tb_S_ClientID.Name = "tb_S_ClientID";
+      tb_S_ClientID.PlaceholderText = "Client ID";
+      tb_S_ClientID.Size = new Size(125, 27);
+      tb_S_ClientID.TabIndex = 16;
       // 
       // appDbContextBindingSource
       // 
@@ -614,81 +827,45 @@
       // 
       appDbContextBindingSource1.DataSource = typeof(Data.AppDbContext);
       // 
-      // button13
+      // appDbContextBindingSource2
       // 
-      button13.Location = new Point(123, 198);
-      button13.Name = "button13";
-      button13.Size = new Size(94, 29);
-      button13.TabIndex = 15;
-      button13.Text = "Search";
-      button13.UseVisualStyleBackColor = true;
+      appDbContextBindingSource2.DataSource = typeof(Data.AppDbContext);
       // 
-      // button14
+      // lb_CL_First_Name
       // 
-      button14.Location = new Point(23, 198);
-      button14.Name = "button14";
-      button14.Size = new Size(94, 29);
-      button14.TabIndex = 14;
-      button14.Text = "Delete";
-      button14.UseVisualStyleBackColor = true;
+      lb_CL_First_Name.AutoSize = true;
+      lb_CL_First_Name.Location = new Point(20, 7);
+      lb_CL_First_Name.Name = "lb_CL_First_Name";
+      lb_CL_First_Name.Size = new Size(80, 20);
+      lb_CL_First_Name.TabIndex = 9;
+      lb_CL_First_Name.Text = "First Name";
       // 
-      // button15
+      // lb_CL_Last_Name
       // 
-      button15.Location = new Point(123, 163);
-      button15.Name = "button15";
-      button15.Size = new Size(94, 29);
-      button15.TabIndex = 13;
-      button15.Text = "Edit";
-      button15.UseVisualStyleBackColor = true;
+      lb_CL_Last_Name.AutoSize = true;
+      lb_CL_Last_Name.Location = new Point(151, 7);
+      lb_CL_Last_Name.Name = "lb_CL_Last_Name";
+      lb_CL_Last_Name.Size = new Size(79, 20);
+      lb_CL_Last_Name.TabIndex = 10;
+      lb_CL_Last_Name.Text = "Last Name";
       // 
-      // button16
+      // lb_CL_Phone_Number
       // 
-      button16.Location = new Point(23, 163);
-      button16.Name = "button16";
-      button16.Size = new Size(94, 29);
-      button16.TabIndex = 12;
-      button16.Text = "Add";
-      button16.UseVisualStyleBackColor = true;
+      lb_CL_Phone_Number.AutoSize = true;
+      lb_CL_Phone_Number.Location = new Point(20, 66);
+      lb_CL_Phone_Number.Name = "lb_CL_Phone_Number";
+      lb_CL_Phone_Number.Size = new Size(108, 20);
+      lb_CL_Phone_Number.TabIndex = 11;
+      lb_CL_Phone_Number.Text = "Phone Number";
       // 
-      // textBox5
+      // lb_CL_Email
       // 
-      textBox5.Location = new Point(154, 64);
-      textBox5.Name = "textBox5";
-      textBox5.PlaceholderText = "PaymentDate";
-      textBox5.Size = new Size(125, 27);
-      textBox5.TabIndex = 11;
-      // 
-      // textBox6
-      // 
-      textBox6.Location = new Point(23, 64);
-      textBox6.Name = "textBox6";
-      textBox6.PlaceholderText = "PaymentMethod";
-      textBox6.Size = new Size(125, 27);
-      textBox6.TabIndex = 10;
-      // 
-      // textBox7
-      // 
-      textBox7.Location = new Point(154, 31);
-      textBox7.Name = "textBox7";
-      textBox7.PlaceholderText = "Amount";
-      textBox7.Size = new Size(125, 27);
-      textBox7.TabIndex = 9;
-      // 
-      // textBox8
-      // 
-      textBox8.Location = new Point(23, 31);
-      textBox8.Name = "textBox8";
-      textBox8.PlaceholderText = "SessionId";
-      textBox8.Size = new Size(125, 27);
-      textBox8.TabIndex = 8;
-      // 
-      // textBox9
-      // 
-      textBox9.Location = new Point(23, 97);
-      textBox9.Name = "textBox9";
-      textBox9.PlaceholderText = "Session";
-      textBox9.Size = new Size(125, 27);
-      textBox9.TabIndex = 16;
+      lb_CL_Email.AutoSize = true;
+      lb_CL_Email.Location = new Point(151, 66);
+      lb_CL_Email.Name = "lb_CL_Email";
+      lb_CL_Email.Size = new Size(46, 20);
+      lb_CL_Email.TabIndex = 12;
+      lb_CL_Email.Text = "Email";
       // 
       // Simple_Data_Grid_View
       // 
@@ -697,7 +874,7 @@
       ClientSize = new Size(942, 533);
       Controls.Add(tabControl_Test_Tabels);
       Name = "Simple_Data_Grid_View";
-      Text = "Simple_Data_Grid_View";
+      Text = "Admin Interface";
       Load += Simple_Data_Grid_View_Load;
       tabControl_Test_Tabels.ResumeLayout(false);
       tab_Client.ResumeLayout(false);
@@ -735,8 +912,16 @@
       ((System.ComponentModel.ISupportInitialize)splitContainer4).EndInit();
       splitContainer4.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)dgv_Payments).EndInit();
+      tab_Session.ResumeLayout(false);
+      splitContainer5.Panel1.ResumeLayout(false);
+      splitContainer5.Panel2.ResumeLayout(false);
+      splitContainer5.Panel2.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)splitContainer5).EndInit();
+      splitContainer5.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)dgv_Session).EndInit();
       ((System.ComponentModel.ISupportInitialize)appDbContextBindingSource).EndInit();
       ((System.ComponentModel.ISupportInitialize)appDbContextBindingSource1).EndInit();
+      ((System.ComponentModel.ISupportInitialize)appDbContextBindingSource2).EndInit();
       ResumeLayout(false);
     }
 
@@ -760,43 +945,60 @@
     private SplitContainer splitContainer2;
     private SplitContainer splitContainer3;
     private SplitContainer splitContainer4;
-    private TextBox tb_FirstName;
-    private TextBox tb_LastName;
-    private TextBox tb_Phone;
-    private TextBox tb_Email;
-    private Button btn_Search;
-    private Button btn_Delete;
-    private Button btn_Edit;
-    private Button btn_ADD;
-    private Button button1;
-    private Button button2;
-    private Button button3;
-    private Button button4;
-    private TextBox tb_Specifications;
-    private TextBox tb_Status;
-    private TextBox tb_PcNumber;
-    private Button button5;
-    private Button button6;
-    private Button button7;
-    private Button button8;
-    private TextBox tb_Game_Genre;
-    private TextBox tb_Game_Name;
-    private Button button9;
-    private Button button10;
-    private Button button11;
-    private Button button12;
+    private TextBox tb_CL_FirstName;
+    private TextBox tb_CL_LastName;
+    private TextBox tb_CL_Phone;
+    private TextBox tb_CL_Email;
+    private Button btn_CL_Search;
+    private Button btn_CL_Delete;
+    private Button btn_CL_Edit;
+    private Button btn_CL_Add;
+    private Button btn_PC_Search;
+    private Button btn_PC_Delete;
+    private Button btn_PC_Edit;
+    private Button btn_PC_Add;
+    private TextBox tb_PC_Specifications;
+    private TextBox tb_PC_Status;
+    private TextBox tb_PC_PcNumber;
+    private Button btn_GM_Search;
+    private Button btn_GM_Delete;
+    private Button btn_GM_Edit;
+    private Button btn_GM_Add;
+    private TextBox tb_GM_Genre;
+    private TextBox tb_GM_Name;
+    private Button btn_SG_Search;
+    private Button btn_SG_Delete;
+    private Button btn_SG_Edit;
+    private Button btn_SG_Add;
     private TextBox textBox1;
     private TextBox textBox2;
     private TextBox textBox3;
-    private TextBox textBox4;
-    private TextBox textBox9;
-    private Button button13;
-    private Button button14;
-    private Button button15;
-    private Button button16;
-    private TextBox textBox5;
-    private TextBox textBox6;
-    private TextBox textBox7;
-    private TextBox textBox8;
+    private TextBox tb_SG_GameID;
+    private TextBox tb_SG_SessionID;
+    private Button btn_PY_Search;
+    private Button btn_PY_Delete;
+    private Button btn_PY_Edit;
+    private Button btn_PY_Add;
+    private TextBox tb_PY_PaymentDate;
+    private TextBox tb_PY_PaymentMethod;
+    private TextBox tb_PY_Amount;
+    private TextBox tb_PY_SessionID;
+    private TabPage tab_Session;
+    private SplitContainer splitContainer5;
+    private DataGridView dgv_Session;
+    private BindingSource appDbContextBindingSource2;
+    private Button btn_S_Search;
+    private Button btn_S_Delete;
+    private Button btn_S_Edit;
+    private Button btn_S_Add;
+    private TextBox tb_S_EndTime;
+    private TextBox tb_S_StartTime;
+    private TextBox tb_S_ComputerID;
+    private TextBox tb_S_ClientID;
+    private Button btn_CL_Clear_Data;
+    private Label lb_CL_Email;
+    private Label lb_CL_Phone_Number;
+    private Label lb_CL_Last_Name;
+    private Label lb_CL_First_Name;
   }
 }

@@ -1,6 +1,9 @@
 ﻿using Management_Internet_Cafe.Data;
+using Management_Internet_Cafe.Models;
 using System;
 using System.Linq;
+using System.Net.Mail;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Management_Internet_Cafe.Forms
@@ -18,11 +21,11 @@ namespace Management_Internet_Cafe.Forms
     private void Simple_Data_Grid_View_Load(object sender, EventArgs e)
     {
       LoadData();
-      //SetupGrids();
       ApplySmartColumnSizing(dgv_Clients);
       ApplySmartColumnSizing(dgv_Computers);
       ApplySmartColumnSizing(dgv_Games);
       ApplySmartColumnSizing(dgv_Session_Game);
+      ApplySmartColumnSizing(dgv_Session);
       ApplySmartColumnSizing(dgv_Payments);
     }
 
@@ -32,6 +35,7 @@ namespace Management_Internet_Cafe.Forms
       dgv_Clients.DataSource = _context.Clients
           .Select(c => new
           {
+            c.Id,
             c.FirstName,
             c.LastName,
             c.Phone,
@@ -43,6 +47,7 @@ namespace Management_Internet_Cafe.Forms
       dgv_Computers.DataSource = _context.Computers
           .Select(c => new
           {
+            c.Id,
             c.PcNumber,
             c.Status,
             c.Specifications
@@ -53,6 +58,7 @@ namespace Management_Internet_Cafe.Forms
       dgv_Games.DataSource = _context.Games
           .Select(g => new
           {
+            g.Id,
             g.Name,
             g.Genre
           })
@@ -62,8 +68,20 @@ namespace Management_Internet_Cafe.Forms
       dgv_Session_Game.DataSource = _context.SessionGames
           .Select(sg => new
           {
+            sg.Id,
             sg.SessionId,
             sg.GameId
+          })
+          .ToList();
+      // SESSION 
+      dgv_Session.DataSource = _context.Sessions
+          .Select(s => new
+          {
+            s.Id,
+            s.ClientId,
+            s.ComputerId,
+            s.StartTime,
+            s.EndTime
           })
           .ToList();
 
@@ -71,30 +89,21 @@ namespace Management_Internet_Cafe.Forms
       dgv_Payments.DataSource = _context.Payments
           .Select(p => new
           {
+            p.Id,
             p.SessionId,
             p.Amount,
             p.PaymentMethod,
             p.PaymentDate
           })
           .ToList();
-    }
-    // GRID FORMATTING
-    private void SetupGrids()
-    {
-      SetupGrid(dgv_Clients);
-      SetupGrid(dgv_Computers);
-      SetupGrid(dgv_Games);
-      SetupGrid(dgv_Session_Game);
-      SetupGrid(dgv_Payments);
-    }
+      // hide ID from UI
+      dgv_Clients.Columns["Id"].Visible = false;
+      dgv_Computers.Columns["Id"].Visible = false;
+      dgv_Games.Columns["Id"].Visible = false;
+      dgv_Session.Columns["Id"].Visible = false;
+      dgv_Session_Game.Columns["Id"].Visible = false;
+      dgv_Payments.Columns["Id"].Visible = false;
 
-    // REUSABLE GRID STYLE
-    private void SetupGrid(DataGridView dgv)
-    {
-      dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-      dgv.RowHeadersVisible = false;
-      dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-      dgv.ReadOnly = true;
     }
 
     private void ApplySmartColumnSizing(DataGridView dgv)
@@ -167,5 +176,316 @@ namespace Management_Internet_Cafe.Forms
         col.FillWeight = 200;
       }
     }
+    // dgv_Clients
+    private void dgv_Clients_CellClick(object sender, DataGridViewCellEventArgs e)
+    {
+      if (e.RowIndex < 0)
+        return;
+
+      DataGridViewRow row = dgv_Clients.Rows[e.RowIndex];
+
+      tb_CL_FirstName.Text = row.Cells["FirstName"].Value?.ToString();
+      tb_CL_LastName.Text = row.Cells["LastName"].Value?.ToString();
+      tb_CL_Phone.Text = row.Cells["Phone"].Value?.ToString();
+      tb_CL_Email.Text = row.Cells["Email"].Value?.ToString();
+    }
+    private void btn_CL_Add_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        if (!ValidateClientInputs())
+          return;
+
+        Client client = new Client()
+        {
+          FirstName = tb_CL_FirstName.Text.Trim(),
+          LastName = tb_CL_LastName.Text.Trim(),
+          Phone = tb_CL_Phone.Text.Trim(),
+          Email = tb_CL_Email.Text.Trim().ToLower()
+        };
+
+        _context.Clients.Add(client);
+
+        _context.SaveChanges();
+
+        LoadData();
+
+        ClearClientFields();
+
+        MessageBox.Show("Client added successfully!");
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Add error: " + ex.Message);
+      }
+    }
+
+    private void btn_CL_Edit_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        if (!ValidateClientInputs())
+          return;
+
+        if (dgv_Clients.CurrentRow == null)
+        {
+          MessageBox.Show("Select a client first!");
+          return;
+        }
+
+        int clientId = Convert.ToInt32(
+            dgv_Clients.CurrentRow.Cells["Id"].Value);
+
+        Client client = _context.Clients.Find(clientId);
+
+        if (client == null)
+        {
+          MessageBox.Show("Client not found!");
+          return;
+        }
+
+        client.FirstName = tb_CL_FirstName.Text.Trim();
+        client.LastName = tb_CL_LastName.Text.Trim();
+        client.Phone = tb_CL_Phone.Text.Trim();
+        client.Email = tb_CL_Email.Text.Trim().ToLower();
+
+        _context.SaveChanges();
+
+        LoadData();
+
+        ClearClientFields();
+
+        MessageBox.Show("Client updated successfully!");
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Edit error: " + ex.Message);
+      }
+    }
+
+    private void btn_CL_Delete_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        if (dgv_Clients.CurrentRow == null)
+        {
+          MessageBox.Show("Select a client first!");
+          return;
+        }
+
+        DialogResult result = MessageBox.Show(
+            "Delete selected client?",
+            "Confirm Delete",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Warning);
+
+        if (result != DialogResult.Yes)
+          return;
+
+        int clientId = Convert.ToInt32(
+            dgv_Clients.CurrentRow.Cells["Id"].Value);
+
+        Client client = _context.Clients.Find(clientId);
+
+        if (client == null)
+        {
+          MessageBox.Show("Client not found!");
+          return;
+        }
+
+        _context.Clients.Remove(client);
+
+        _context.SaveChanges();
+
+        LoadData();
+
+        ClearClientFields();
+
+        MessageBox.Show("Client deleted successfully!");
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Delete error: " + ex.Message);
+      }
+    }
+
+    private void btn_CL_Search_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        if (!ValidateSearchInputs())
+          return;
+
+        string firstName = tb_CL_FirstName.Text.Trim().ToLower();
+        string lastName = tb_CL_LastName.Text.Trim().ToLower();
+        string phone = tb_CL_Phone.Text.Trim().ToLower();
+        string email = tb_CL_Email.Text.Trim().ToLower();
+
+        dgv_Clients.DataSource = _context.Clients
+            .Where(c =>
+                c.FirstName.ToLower().Contains(firstName) &&
+                c.LastName.ToLower().Contains(lastName) &&
+                c.Phone.ToLower().Contains(phone) &&
+                c.Email.ToLower().Contains(email))
+            .Select(c => new
+            {
+              c.Id,
+              c.FirstName,
+              c.LastName,
+              c.Phone,
+              c.Email
+            })
+            .ToList();
+
+        dgv_Clients.Columns["Id"].Visible = false;
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Search error: " + ex.Message);
+      }
+    }
+    private bool ValidateClientInputs(bool validateEmpty = true)
+    {
+      // =========================
+      // EMPTY FIELD VALIDATION
+      // =========================
+      if (validateEmpty)
+      {
+        if (
+          string.IsNullOrWhiteSpace(tb_CL_FirstName.Text) ||
+          string.IsNullOrWhiteSpace(tb_CL_LastName.Text) ||
+          string.IsNullOrWhiteSpace(tb_CL_Phone.Text) ||
+          string.IsNullOrWhiteSpace(tb_CL_Email.Text))
+        {
+          MessageBox.Show("All fields are required!");
+          return false;
+        }
+      }
+
+      // =========================
+      // PHONE VALIDATION
+      // =========================
+      string phone = tb_CL_Phone.Text.Trim();
+
+      bool validPhone =
+          Regex.IsMatch(phone, @"^0\d{7,9}$") ||       // 07xxxxxxx
+          Regex.IsMatch(phone, @"^\+373\d{8}$");       // +373xxxxxxxx
+
+      if (!validPhone)
+      {
+        MessageBox.Show(
+            "Invalid phone number!\n" +
+            "Examples:\n" +
+            "071234567\n" +
+            "+37371234567");
+
+        return false;
+      }
+
+      // =========================
+      // EMAIL VALIDATION
+      // =========================
+      try
+      {
+        MailAddress mail = new MailAddress(tb_CL_Email.Text);
+      }
+      catch
+      {
+        MessageBox.Show("Invalid email address!");
+        return false;
+      }
+
+      return true;
+    }
+    private bool ValidateSearchInputs()
+    {
+      string phone = tb_CL_Phone.Text.Trim();
+
+      if (!string.IsNullOrWhiteSpace(phone))
+      {
+        bool validPhone =
+            Regex.IsMatch(phone, @"^0\d{7,9}$") ||
+            Regex.IsMatch(phone, @"^\+373\d{8}$");
+
+        if (!validPhone)
+        {
+          MessageBox.Show("Invalid phone format!");
+          return false;
+        }
+      }
+
+      if (!string.IsNullOrWhiteSpace(tb_CL_Email.Text))
+      {
+        try
+        {
+          MailAddress mail = new MailAddress(tb_CL_Email.Text);
+        }
+        catch
+        {
+          MessageBox.Show("Invalid email format!");
+          return false;
+        }
+      }
+
+      return true;
+    }
+    private void ClearClientFields()
+    {
+      tb_CL_FirstName.Clear();
+      tb_CL_LastName.Clear();
+      tb_CL_Phone.Clear();
+      tb_CL_Email.Clear();
+    }
+    private void btn_CL_Clear_Data_Click(object sender, EventArgs e)
+    {
+      ClearClientFields();
+    }
+    // dgv_Computers
+    private void dgv_Computers_CellClick(object sender, DataGridViewCellEventArgs e)
+    {
+
+    }
+    // dgv_Games
+    private void dgv_Games_CellClick(object sender, DataGridViewCellEventArgs e)
+    {
+
+    }
+    // dgv_Session_Game
+    private void dgv_Session_Game_CellClick(object sender, DataGridViewCellEventArgs e)
+    {
+
+    }
+    // dgv_Payments
+    private void dgv_Payments_CellClick(object sender, DataGridViewCellEventArgs e)
+    {
+
+    }
+    // dgv_Sessions
+    private void dgv_Sessions_CellClick(object sender, DataGridViewCellEventArgs e)
+    {
+
+    }
+    private void btn_S_Add_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void btn_S_Edit_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void btn_S_Delete_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void btn_S_Search_Click(object sender, EventArgs e)
+    {
+
+    }
+    // EXTRA CODE
+
+
   }
 }
