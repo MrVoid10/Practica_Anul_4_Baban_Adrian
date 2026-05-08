@@ -1280,7 +1280,170 @@ namespace Management_Internet_Cafe.Forms
     // dgv_Payments
     private void dgv_Payments_CellClick(object sender, DataGridViewCellEventArgs e)
     {
+      if (e.RowIndex < 0) return;
 
+      var row = dgv_Payments.Rows[e.RowIndex];
+
+      tb_PY_SessionID.Text = row.Cells["SessionId"].Value?.ToString();
+      tb_PY_Amount.Text = row.Cells["Amount"].Value?.ToString();
+      tb_PY_PaymentMethod.Text = row.Cells["PaymentMethod"].Value?.ToString();
+      tb_PY_PaymentDate.Text = row.Cells["PaymentDate"].Value?.ToString(); 
+    }
+
+    private void btn_PY_Add_Click(object sender, EventArgs e)
+    {
+      if (!ValidatePayment()) return;
+
+      if (!DateTime.TryParse(tb_PY_PaymentDate.Text, out DateTime paymentDate))
+      {
+        MessageBox.Show("Invalid payment date format");
+        return;
+      }
+
+      var payment = new Payment
+      {
+        SessionId = int.Parse(tb_PY_SessionID.Text),
+        Amount = decimal.Parse(tb_PY_Amount.Text),
+        PaymentMethod = tb_PY_PaymentMethod.Text,
+        PaymentDate = paymentDate
+      };
+
+      _context.Payments.Add(payment);
+      _context.SaveChanges();
+
+      LoadPayments();
+      ClearPaymentFields();
+    }
+
+    private void btn_PY_Edit_Click(object sender, EventArgs e)
+    {
+      if (dgv_Payments.CurrentRow == null) return;
+      if (!ValidatePayment()) return;
+
+      int id = Convert.ToInt32(dgv_Payments.CurrentRow.Cells["Id"].Value);
+
+      var payment = _context.Payments.FirstOrDefault(p => p.Id == id);
+      if (payment == null) return;
+
+      if (!DateTime.TryParse(tb_PY_PaymentDate.Text, out DateTime paymentDate))
+      {
+        MessageBox.Show("Invalid payment date format");
+        return;
+      }
+
+      payment.SessionId = int.Parse(tb_PY_SessionID.Text);
+      payment.Amount = decimal.Parse(tb_PY_Amount.Text);
+      payment.PaymentMethod = tb_PY_PaymentMethod.Text;
+      payment.PaymentDate = paymentDate;
+
+      _context.SaveChanges();
+
+      LoadPayments();
+    }
+
+    private void btn_PY_Delete_Click(object sender, EventArgs e)
+    {
+      if (dgv_Payments.CurrentRow == null) return;
+
+      int id = Convert.ToInt32(dgv_Payments.CurrentRow.Cells["Id"].Value);
+
+      var payment = _context.Payments.FirstOrDefault(p => p.Id == id);
+      if (payment == null) return;
+
+      if (MessageBox.Show("Delete payment?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+      {
+        _context.Payments.Remove(payment);
+        _context.SaveChanges();
+        LoadPayments();
+      }
+    }
+
+    private void btn_PY_Search_Click(object sender, EventArgs e)
+    {
+      if (!int.TryParse(tb_PY_SessionID.Text, out int sessionId))
+      {
+        LoadPayments();
+        return;
+      }
+
+      dgv_Payments.DataSource = _context.Payments
+          .Where(p => p.SessionId == sessionId)
+          .Select(p => new
+          {
+            p.Id,
+            p.SessionId,
+            p.Amount,
+            p.PaymentMethod,
+            p.PaymentDate
+          })
+          .ToList();
+    }
+    private bool ValidatePayment()
+    {
+      if (!int.TryParse(tb_PY_SessionID.Text, out int sessionId))
+      {
+        MessageBox.Show("Invalid Session ID");
+        return false;
+      }
+
+      if (sessionId <= 0)
+      {
+        MessageBox.Show("Session ID must be greater than 0");
+        return false;
+      }
+
+      var sessionExists = _context.Sessions.Any(s => s.Id == sessionId);
+      if (!sessionExists)
+      {
+        MessageBox.Show("Session does not exist");
+        return false;
+      }
+
+      if (!decimal.TryParse(tb_PY_Amount.Text, out decimal amount))
+      {
+        MessageBox.Show("Invalid amount");
+        return false;
+      }
+
+      if (amount <= 0)
+      {
+        MessageBox.Show("Amount must be greater than 0");
+        return false;
+      }
+
+      string method = tb_PY_PaymentMethod.Text.Trim().ToLower();
+      if (method != "cash" && method != "card")
+      {
+        MessageBox.Show("Payment method must be Cash or Card");
+        return false;
+      }
+
+      return true;
+    }
+    private void LoadPayments()
+    {
+      dgv_Payments.DataSource = _context.Payments
+          .Select(p => new
+          {
+            p.Id,
+            p.SessionId,
+            p.Amount,
+            p.PaymentMethod,
+            p.PaymentDate
+          })
+          .ToList();
+    }
+
+    private void ClearPaymentFields()
+    {
+      tb_PY_SessionID.Clear();
+      tb_PY_Amount.Clear();
+      tb_PY_PaymentMethod.Clear();
+    }
+
+    private void btn_PY_Clear_Fields_Click(object sender, EventArgs e)
+    {
+      ClearPaymentFields();
     }
     // EXTRA CODE
 

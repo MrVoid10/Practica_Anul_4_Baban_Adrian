@@ -103,6 +103,11 @@
       tab_Payment = new TabPage();
       splitContainer4 = new SplitContainer();
       dgv_Payments = new DataGridView();
+      lb_PY_Payment_Date = new Label();
+      lb_PY_Payment_Method = new Label();
+      lb_PY_Anount = new Label();
+      lb_PY_SessionID = new Label();
+      btn_PY_Clear_Fields = new Button();
       btn_PY_Search = new Button();
       btn_PY_Delete = new Button();
       btn_PY_Edit = new Button();
@@ -945,6 +950,11 @@
       // 
       // splitContainer4.Panel2
       // 
+      splitContainer4.Panel2.Controls.Add(lb_PY_Payment_Date);
+      splitContainer4.Panel2.Controls.Add(lb_PY_Payment_Method);
+      splitContainer4.Panel2.Controls.Add(lb_PY_Anount);
+      splitContainer4.Panel2.Controls.Add(lb_PY_SessionID);
+      splitContainer4.Panel2.Controls.Add(btn_PY_Clear_Fields);
       splitContainer4.Panel2.Controls.Add(btn_PY_Search);
       splitContainer4.Panel2.Controls.Add(btn_PY_Delete);
       splitContainer4.Panel2.Controls.Add(btn_PY_Edit);
@@ -968,6 +978,52 @@
       dgv_Payments.TabIndex = 2;
       dgv_Payments.CellClick += dgv_Payments_CellClick;
       // 
+      // lb_PY_Payment_Date
+      // 
+      lb_PY_Payment_Date.AutoSize = true;
+      lb_PY_Payment_Date.Location = new Point(154, 83);
+      lb_PY_Payment_Date.Name = "lb_PY_Payment_Date";
+      lb_PY_Payment_Date.Size = new Size(101, 20);
+      lb_PY_Payment_Date.TabIndex = 30;
+      lb_PY_Payment_Date.Text = "Payment Date";
+      // 
+      // lb_PY_Payment_Method
+      // 
+      lb_PY_Payment_Method.AutoSize = true;
+      lb_PY_Payment_Method.Location = new Point(23, 83);
+      lb_PY_Payment_Method.Name = "lb_PY_Payment_Method";
+      lb_PY_Payment_Method.Size = new Size(121, 20);
+      lb_PY_Payment_Method.TabIndex = 29;
+      lb_PY_Payment_Method.Text = "Payment Method";
+      // 
+      // lb_PY_Anount
+      // 
+      lb_PY_Anount.AutoSize = true;
+      lb_PY_Anount.Location = new Point(154, 8);
+      lb_PY_Anount.Name = "lb_PY_Anount";
+      lb_PY_Anount.Size = new Size(133, 20);
+      lb_PY_Anount.TabIndex = 28;
+      lb_PY_Anount.Text = "Amount (Currency)";
+      // 
+      // lb_PY_SessionID
+      // 
+      lb_PY_SessionID.AutoSize = true;
+      lb_PY_SessionID.Location = new Point(23, 8);
+      lb_PY_SessionID.Name = "lb_PY_SessionID";
+      lb_PY_SessionID.Size = new Size(77, 20);
+      lb_PY_SessionID.TabIndex = 27;
+      lb_PY_SessionID.Text = "Session ID";
+      // 
+      // btn_PY_Clear_Fields
+      // 
+      btn_PY_Clear_Fields.Location = new Point(123, 233);
+      btn_PY_Clear_Fields.Name = "btn_PY_Clear_Fields";
+      btn_PY_Clear_Fields.Size = new Size(94, 29);
+      btn_PY_Clear_Fields.TabIndex = 26;
+      btn_PY_Clear_Fields.Text = "Clear Fields";
+      btn_PY_Clear_Fields.UseVisualStyleBackColor = true;
+      btn_PY_Clear_Fields.Click += btn_PY_Clear_Fields_Click;
+      // 
       // btn_PY_Search
       // 
       btn_PY_Search.Location = new Point(123, 198);
@@ -976,6 +1032,7 @@
       btn_PY_Search.TabIndex = 15;
       btn_PY_Search.Text = "Search";
       btn_PY_Search.UseVisualStyleBackColor = true;
+      btn_PY_Search.Click += btn_PY_Search_Click;
       // 
       // btn_PY_Delete
       // 
@@ -985,6 +1042,7 @@
       btn_PY_Delete.TabIndex = 14;
       btn_PY_Delete.Text = "Delete";
       btn_PY_Delete.UseVisualStyleBackColor = true;
+      btn_PY_Delete.Click += btn_PY_Delete_Click;
       // 
       // btn_PY_Edit
       // 
@@ -994,6 +1052,7 @@
       btn_PY_Edit.TabIndex = 13;
       btn_PY_Edit.Text = "Edit";
       btn_PY_Edit.UseVisualStyleBackColor = true;
+      btn_PY_Edit.Click += btn_PY_Edit_Click;
       // 
       // btn_PY_Add
       // 
@@ -1003,18 +1062,19 @@
       btn_PY_Add.TabIndex = 12;
       btn_PY_Add.Text = "Add";
       btn_PY_Add.UseVisualStyleBackColor = true;
+      btn_PY_Add.Click += btn_PY_Add_Click;
       // 
       // tb_PY_PaymentDate
       // 
-      tb_PY_PaymentDate.Location = new Point(154, 64);
+      tb_PY_PaymentDate.Location = new Point(154, 106);
       tb_PY_PaymentDate.Name = "tb_PY_PaymentDate";
       tb_PY_PaymentDate.PlaceholderText = "PaymentDate";
-      tb_PY_PaymentDate.Size = new Size(125, 27);
+      tb_PY_PaymentDate.Size = new Size(146, 27);
       tb_PY_PaymentDate.TabIndex = 11;
       // 
       // tb_PY_PaymentMethod
       // 
-      tb_PY_PaymentMethod.Location = new Point(23, 64);
+      tb_PY_PaymentMethod.Location = new Point(23, 106);
       tb_PY_PaymentMethod.Name = "tb_PY_PaymentMethod";
       tb_PY_PaymentMethod.PlaceholderText = "PaymentMethod";
       tb_PY_PaymentMethod.Size = new Size(125, 27);
@@ -1196,5 +1256,10 @@
     private Label lb_SG_GameID;
     private Label lb_SG_SessionID;
     private Button btn_SG_Clear_Fields;
+    private Button btn_PY_Clear_Fields;
+    private Label lb_PY_Payment_Date;
+    private Label lb_PY_Payment_Method;
+    private Label lb_PY_Anount;
+    private Label lb_PY_SessionID;
   }
 }
