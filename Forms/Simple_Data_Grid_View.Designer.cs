@@ -49,6 +49,9 @@
       tab_Calculator = new TabPage();
       splitContainer1 = new SplitContainer();
       dgv_Computers = new DataGridView();
+      lb_PC_Specifications = new Label();
+      lb_PC_Status = new Label();
+      lb_PC_PC_Number = new Label();
       btn_PC_Clear_Fields = new Button();
       btn_PC_Search = new Button();
       btn_PC_Delete = new Button();
@@ -60,6 +63,9 @@
       tab_Game = new TabPage();
       splitContainer2 = new SplitContainer();
       dgv_Games = new DataGridView();
+      lb_GM_Genre = new Label();
+      lb_GM_Name = new Label();
+      btn_GM_Clear_Fields = new Button();
       btn_GM_Search = new Button();
       btn_GM_Delete = new Button();
       btn_GM_Edit = new Button();
@@ -100,9 +106,6 @@
       appDbContextBindingSource = new BindingSource(components);
       appDbContextBindingSource1 = new BindingSource(components);
       appDbContextBindingSource2 = new BindingSource(components);
-      lb_PC_PC_Number = new Label();
-      lb_PC_Status = new Label();
-      lb_PC_Specifications = new Label();
       tabControl_Test_Tabels.SuspendLayout();
       tab_Client.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)splitC_Clients).BeginInit();
@@ -378,6 +381,33 @@
       dgv_Computers.TabIndex = 1;
       dgv_Computers.CellClick += dgv_Computers_CellClick;
       // 
+      // lb_PC_Specifications
+      // 
+      lb_PC_Specifications.AutoSize = true;
+      lb_PC_Specifications.Location = new Point(18, 63);
+      lb_PC_Specifications.Name = "lb_PC_Specifications";
+      lb_PC_Specifications.Size = new Size(101, 20);
+      lb_PC_Specifications.TabIndex = 19;
+      lb_PC_Specifications.Text = "Specifications";
+      // 
+      // lb_PC_Status
+      // 
+      lb_PC_Status.AutoSize = true;
+      lb_PC_Status.Location = new Point(163, 8);
+      lb_PC_Status.Name = "lb_PC_Status";
+      lb_PC_Status.Size = new Size(49, 20);
+      lb_PC_Status.TabIndex = 18;
+      lb_PC_Status.Text = "Status";
+      // 
+      // lb_PC_PC_Number
+      // 
+      lb_PC_PC_Number.AutoSize = true;
+      lb_PC_PC_Number.Location = new Point(18, 6);
+      lb_PC_PC_Number.Name = "lb_PC_PC_Number";
+      lb_PC_PC_Number.Size = new Size(133, 20);
+      lb_PC_PC_Number.TabIndex = 17;
+      lb_PC_PC_Number.Text = "Computer Number";
+      // 
       // btn_PC_Clear_Fields
       // 
       btn_PC_Clear_Fields.Location = new Point(118, 266);
@@ -476,6 +506,9 @@
       // 
       // splitContainer2.Panel2
       // 
+      splitContainer2.Panel2.Controls.Add(lb_GM_Genre);
+      splitContainer2.Panel2.Controls.Add(lb_GM_Name);
+      splitContainer2.Panel2.Controls.Add(btn_GM_Clear_Fields);
       splitContainer2.Panel2.Controls.Add(btn_GM_Search);
       splitContainer2.Panel2.Controls.Add(btn_GM_Delete);
       splitContainer2.Panel2.Controls.Add(btn_GM_Edit);
@@ -497,6 +530,34 @@
       dgv_Games.TabIndex = 2;
       dgv_Games.CellClick += dgv_Games_CellClick;
       // 
+      // lb_GM_Genre
+      // 
+      lb_GM_Genre.AutoSize = true;
+      lb_GM_Genre.Location = new Point(149, 9);
+      lb_GM_Genre.Name = "lb_GM_Genre";
+      lb_GM_Genre.Size = new Size(48, 20);
+      lb_GM_Genre.TabIndex = 26;
+      lb_GM_Genre.Text = "Genre";
+      // 
+      // lb_GM_Name
+      // 
+      lb_GM_Name.AutoSize = true;
+      lb_GM_Name.Location = new Point(18, 9);
+      lb_GM_Name.Name = "lb_GM_Name";
+      lb_GM_Name.Size = new Size(92, 20);
+      lb_GM_Name.TabIndex = 25;
+      lb_GM_Name.Text = "Game Name";
+      // 
+      // btn_GM_Clear_Fields
+      // 
+      btn_GM_Clear_Fields.Location = new Point(118, 184);
+      btn_GM_Clear_Fields.Name = "btn_GM_Clear_Fields";
+      btn_GM_Clear_Fields.Size = new Size(94, 29);
+      btn_GM_Clear_Fields.TabIndex = 23;
+      btn_GM_Clear_Fields.Text = "Clear Fields";
+      btn_GM_Clear_Fields.UseVisualStyleBackColor = true;
+      btn_GM_Clear_Fields.Click += btn_GM_Clear_Fields_Click;
+      // 
       // btn_GM_Search
       // 
       btn_GM_Search.Location = new Point(118, 149);
@@ -505,6 +566,7 @@
       btn_GM_Search.TabIndex = 22;
       btn_GM_Search.Text = "Search";
       btn_GM_Search.UseVisualStyleBackColor = true;
+      btn_GM_Search.Click += btn_GM_Search_Click;
       // 
       // btn_GM_Delete
       // 
@@ -514,6 +576,7 @@
       btn_GM_Delete.TabIndex = 21;
       btn_GM_Delete.Text = "Delete";
       btn_GM_Delete.UseVisualStyleBackColor = true;
+      btn_GM_Delete.Click += btn_GM_Delete_Click;
       // 
       // btn_GM_Edit
       // 
@@ -523,6 +586,7 @@
       btn_GM_Edit.TabIndex = 20;
       btn_GM_Edit.Text = "Edit";
       btn_GM_Edit.UseVisualStyleBackColor = true;
+      btn_GM_Edit.Click += btn_GM_Edit_Click;
       // 
       // btn_GM_Add
       // 
@@ -532,10 +596,11 @@
       btn_GM_Add.TabIndex = 19;
       btn_GM_Add.Text = "Add";
       btn_GM_Add.UseVisualStyleBackColor = true;
+      btn_GM_Add.Click += btn_GM_Add_Click;
       // 
       // tb_GM_Genre
       // 
-      tb_GM_Genre.Location = new Point(149, 19);
+      tb_GM_Genre.Location = new Point(149, 32);
       tb_GM_Genre.Name = "tb_GM_Genre";
       tb_GM_Genre.PlaceholderText = "Genre";
       tb_GM_Genre.Size = new Size(125, 27);
@@ -543,7 +608,7 @@
       // 
       // tb_GM_Name
       // 
-      tb_GM_Name.Location = new Point(18, 19);
+      tb_GM_Name.Location = new Point(18, 32);
       tb_GM_Name.Name = "tb_GM_Name";
       tb_GM_Name.PlaceholderText = "Name";
       tb_GM_Name.Size = new Size(125, 27);
@@ -889,33 +954,6 @@
       // 
       appDbContextBindingSource2.DataSource = typeof(Data.AppDbContext);
       // 
-      // lb_PC_PC_Number
-      // 
-      lb_PC_PC_Number.AutoSize = true;
-      lb_PC_PC_Number.Location = new Point(18, 6);
-      lb_PC_PC_Number.Name = "lb_PC_PC_Number";
-      lb_PC_PC_Number.Size = new Size(133, 20);
-      lb_PC_PC_Number.TabIndex = 17;
-      lb_PC_PC_Number.Text = "Computer Number";
-      // 
-      // lb_PC_Status
-      // 
-      lb_PC_Status.AutoSize = true;
-      lb_PC_Status.Location = new Point(163, 8);
-      lb_PC_Status.Name = "lb_PC_Status";
-      lb_PC_Status.Size = new Size(49, 20);
-      lb_PC_Status.TabIndex = 18;
-      lb_PC_Status.Text = "Status";
-      // 
-      // lb_PC_Specifications
-      // 
-      lb_PC_Specifications.AutoSize = true;
-      lb_PC_Specifications.Location = new Point(18, 63);
-      lb_PC_Specifications.Name = "lb_PC_Specifications";
-      lb_PC_Specifications.Size = new Size(101, 20);
-      lb_PC_Specifications.TabIndex = 19;
-      lb_PC_Specifications.Text = "Specifications";
-      // 
       // Simple_Data_Grid_View
       // 
       AutoScaleDimensions = new SizeF(8F, 20F);
@@ -1053,5 +1091,8 @@
     private Label lb_PC_Specifications;
     private Label lb_PC_Status;
     private Label lb_PC_PC_Number;
+    private Button btn_GM_Clear_Fields;
+    private Label lb_GM_Genre;
+    private Label lb_GM_Name;
   }
 }

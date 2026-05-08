@@ -619,7 +619,173 @@ namespace Management_Internet_Cafe.Forms
     // dgv_Games
     private void dgv_Games_CellClick(object sender, DataGridViewCellEventArgs e)
     {
+      if (e.RowIndex >= 0)
+      {
+        DataGridViewRow row = dgv_Games.Rows[e.RowIndex];
 
+        tb_GM_Name.Text = row.Cells["Name"].Value?.ToString();
+        tb_GM_Genre.Text = row.Cells["Genre"].Value?.ToString();
+      }
+    }
+    private void btn_GM_Add_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        if (string.IsNullOrWhiteSpace(tb_GM_Name.Text) ||
+            string.IsNullOrWhiteSpace(tb_GM_Genre.Text))
+        {
+          MessageBox.Show("All fields are required!");
+          return;
+        }
+
+        Game game = new Game()
+        {
+          Name = tb_GM_Name.Text.Trim(),
+          Genre = tb_GM_Genre.Text.Trim()
+        };
+
+        _context.Games.Add(game);
+        _context.SaveChanges();
+
+        LoadData();
+        ClearGameFields();
+
+        MessageBox.Show("Game added successfully!");
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Add error: " + ex.Message);
+      }
+    }
+
+
+    private void btn_GM_Edit_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        if (dgv_Games.CurrentRow == null)
+        {
+          MessageBox.Show("Select a game first!");
+          return;
+        }
+
+        int id = Convert.ToInt32(
+            dgv_Games.CurrentRow.Cells["Id"].Value);
+
+        Game game = _context.Games.Find(id);
+
+        if (game == null)
+        {
+          MessageBox.Show("Game not found!");
+          return;
+        }
+
+        if (string.IsNullOrWhiteSpace(tb_GM_Name.Text) ||
+            string.IsNullOrWhiteSpace(tb_GM_Genre.Text))
+        {
+          MessageBox.Show("All fields are required!");
+          return;
+        }
+
+        game.Name = tb_GM_Name.Text.Trim();
+        game.Genre = tb_GM_Genre.Text.Trim();
+
+        _context.SaveChanges();
+
+        LoadData();
+        ClearGameFields();
+
+        MessageBox.Show("Game updated successfully!");
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Edit error: " + ex.Message);
+      }
+    }
+
+    private void btn_GM_Delete_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        if (dgv_Games.CurrentRow == null)
+        {
+          MessageBox.Show("Select a game first!");
+          return;
+        }
+
+        DialogResult result = MessageBox.Show(
+            "Are you sure you want to delete this game?",
+            "Delete Confirmation",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Warning);
+
+        if (result != DialogResult.Yes)
+          return;
+
+        int id = Convert.ToInt32(
+            dgv_Games.CurrentRow.Cells["Id"].Value);
+
+        Game game = _context.Games.Find(id);
+
+        if (game == null)
+        {
+          MessageBox.Show("Game not found!");
+          return;
+        }
+
+        _context.Games.Remove(game);
+        _context.SaveChanges();
+
+        LoadData();
+        ClearGameFields();
+
+        MessageBox.Show("Game deleted successfully!");
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Delete error: " + ex.Message);
+      }
+    }
+
+    private void btn_GM_Search_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        string searchName = tb_GM_Name.Text.Trim().ToLower();
+        string searchGenre = tb_GM_Genre.Text.Trim().ToLower();
+
+        dgv_Games.DataSource = _context.Games
+            .Where(g =>
+                (string.IsNullOrEmpty(searchName) ||
+                 g.Name.ToLower().Contains(searchName))
+                &&
+                (string.IsNullOrEmpty(searchGenre) ||
+                 g.Genre.ToLower().Contains(searchGenre))
+            )
+            .Select(g => new
+            {
+              g.Id,
+              g.Name,
+              g.Genre
+            })
+            .ToList();
+
+        dgv_Games.Columns["Id"].Visible = false;
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Search error: " + ex.Message);
+      }
+    }
+    private void ClearGameFields()
+    {
+      tb_GM_Name.Clear();
+      tb_GM_Genre.Clear();
+    }
+
+    private void btn_GM_Clear_Fields_Click(object sender, EventArgs e)
+    {
+      ClearGameFields();
     }
     // dgv_Session_Game
     private void dgv_Session_Game_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -655,7 +821,6 @@ namespace Management_Internet_Cafe.Forms
     {
 
     }
-
     // EXTRA CODE
 
 
