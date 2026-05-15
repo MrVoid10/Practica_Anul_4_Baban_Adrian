@@ -78,8 +78,8 @@
       // SpCt_Report_Form.Panel2
       // 
       SpCt_Report_Form.Panel2.Controls.Add(tb_Report_Preview);
-      SpCt_Report_Form.Size = new Size(486, 450);
-      SpCt_Report_Form.SplitterDistance = 285;
+      SpCt_Report_Form.Size = new Size(486, 403);
+      SpCt_Report_Form.SplitterDistance = 289;
       SpCt_Report_Form.TabIndex = 1;
       // 
       // lb_Export_Formats
@@ -106,12 +106,13 @@
       // 
       btn_Generate_Report.Dock = DockStyle.Bottom;
       btn_Generate_Report.Font = new Font("Segoe UI", 14F);
-      btn_Generate_Report.Location = new Point(0, 238);
+      btn_Generate_Report.Location = new Point(0, 242);
       btn_Generate_Report.Name = "btn_Generate_Report";
       btn_Generate_Report.Size = new Size(486, 47);
       btn_Generate_Report.TabIndex = 4;
       btn_Generate_Report.Text = "Generate Report";
       btn_Generate_Report.UseVisualStyleBackColor = true;
+      btn_Generate_Report.Click += btn_Generate_Report_Click;
       // 
       // CLB_Export_Formats
       // 
@@ -186,14 +187,16 @@
       tb_Report_Preview.Multiline = true;
       tb_Report_Preview.Name = "tb_Report_Preview";
       tb_Report_Preview.PlaceholderText = "Report Preview Text Placeholder";
-      tb_Report_Preview.Size = new Size(486, 161);
+      tb_Report_Preview.ReadOnly = true;
+      tb_Report_Preview.ScrollBars = ScrollBars.Vertical;
+      tb_Report_Preview.Size = new Size(486, 110);
       tb_Report_Preview.TabIndex = 0;
       // 
       // Report_Form
       // 
       AutoScaleDimensions = new SizeF(8F, 20F);
       AutoScaleMode = AutoScaleMode.Font;
-      ClientSize = new Size(486, 450);
+      ClientSize = new Size(486, 403);
       Controls.Add(SpCt_Report_Form);
       Name = "Report_Form";
       Text = "Report_Form";
