@@ -7,7 +7,15 @@ using System.Text;
 using System.Windows.Forms;
 using Management_Internet_Cafe.Data;
 using Management_Internet_Cafe.Models;
-
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Kernel.Font;
+using iText.IO.Font.Constants;
+using iText.Layout.Properties;
 
 namespace Management_Internet_Cafe.Forms
 {
@@ -182,10 +190,10 @@ namespace Management_Internet_Cafe.Forms
         sb.AppendLine($"Total PCs: {data.Count}");
         sb.AppendLine($"Available: {data.Count(x => x.Status == "Available")}");
         sb.AppendLine($"Broken: {data.Count(x => x.Status == "Broken")}");
-    }
+      }
 
-    return sb.ToString();
-}
+      return sb.ToString();
+    }
     //games
     private string GenerateGamesReport(AppDbContext context, string level)
     {
@@ -346,7 +354,7 @@ namespace Management_Internet_Cafe.Forms
             break;
 
           case "PDF":
-            //ExportToPdf(reportText);
+            ExportToPdf(reportText);
             break;
 
           case "EXCEL":
@@ -365,6 +373,50 @@ namespace Management_Internet_Cafe.Forms
         if (sfd.ShowDialog() == DialogResult.OK)
         {
           File.WriteAllText(sfd.FileName, reportText);
+        }
+
+      }
+    }
+    private void ExportToPdf(string reportText)
+    {
+      using (SaveFileDialog sfd = new SaveFileDialog())
+      {
+        sfd.Filter = "PDF File (*.pdf)|*.pdf";
+        sfd.FileName = "report.pdf";
+        sfd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+        if (sfd.ShowDialog() != DialogResult.OK)
+          return;
+
+        try
+        {
+          if (string.IsNullOrWhiteSpace(reportText))
+            reportText = "No data available";
+
+          using (FileStream fs = new FileStream(sfd.FileName, FileMode.Create, FileAccess.Write))
+          using (PdfWriter writer = new PdfWriter(fs))
+          using (PdfDocument pdf = new PdfDocument(writer))
+          using (Document document = new Document(pdf))
+          {
+            var boldFont = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
+            var normalFont = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
+
+            document.Add(new Paragraph("Internet Cafe Report")
+                //.SetFont(boldFont)
+                .SetFontSize(16));
+
+            document.Add(new Paragraph("\n"));
+
+            document.Add(new Paragraph(reportText)
+                .SetFont(normalFont)
+                .SetFontSize(10));
+          }
+
+          MessageBox.Show("PDF exported successfully!");
+        }
+        catch (Exception ex)
+        {
+          MessageBox.Show("PDF export failed:\n" + ex.ToString());
         }
       }
     }
