@@ -60,6 +60,7 @@ namespace Management_Internet_Cafe.Forms
       }
 
       tb_Report_Preview.Text = report.ToString();
+      ExportReport(report.ToString());
     }
     // HELPERS
     private List<string> GetSelectedTables()
@@ -98,6 +99,17 @@ namespace Management_Internet_Cafe.Forms
 
       double gb = mb / 1024.0;
       return $"{gb:0.00} GB";
+    }
+    private List<string> GetSelectedFormats()
+    {
+      List<string> formats = new List<string>();
+
+      foreach (var item in CLB_Export_Formats.CheckedItems)
+      {
+        formats.Add(item.ToString());
+      }
+
+      return formats;
     }
     // Table Report Queries
     // Clients
@@ -319,6 +331,42 @@ namespace Management_Internet_Cafe.Forms
       }
 
       return sb.ToString();
+    }
+    // EXPORT Functions
+    private void ExportReport(string reportText)
+    {
+      var formats = GetSelectedFormats();
+
+      foreach (var format in formats)
+      {
+        switch (format)
+        {
+          case "TXT":
+            ExportToTxt(reportText);
+            break;
+
+          case "PDF":
+            //ExportToPdf(reportText);
+            break;
+
+          case "EXCEL":
+            //ExportToExcel(reportText);
+            break;
+        }
+      }
+    }
+    private void ExportToTxt(string reportText)
+    {
+      using (SaveFileDialog sfd = new SaveFileDialog())
+      {
+        sfd.Filter = "Text File (*.txt)|*.txt";
+        sfd.FileName = "report.txt";
+
+        if (sfd.ShowDialog() == DialogResult.OK)
+        {
+          File.WriteAllText(sfd.FileName, reportText);
+        }
+      }
     }
 
   }

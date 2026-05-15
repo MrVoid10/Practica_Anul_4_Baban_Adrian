@@ -118,7 +118,7 @@
       // 
       CLB_Export_Formats.Font = new Font("Segoe UI", 12F);
       CLB_Export_Formats.FormattingEnabled = true;
-      CLB_Export_Formats.Items.AddRange(new object[] { "TXT", "PDF", "Excell" });
+      CLB_Export_Formats.Items.AddRange(new object[] { "TXT", "PDF", "EXCELL" });
       CLB_Export_Formats.Location = new Point(331, 60);
       CLB_Export_Formats.Name = "CLB_Export_Formats";
       CLB_Export_Formats.Size = new Size(145, 91);
