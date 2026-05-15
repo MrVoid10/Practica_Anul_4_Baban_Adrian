@@ -16,6 +16,8 @@ using iText.Layout.Element;
 using iText.Kernel.Font;
 using iText.IO.Font.Constants;
 using iText.Layout.Properties;
+using OfficeOpenXml;
+using System.IO;
 
 namespace Management_Internet_Cafe.Forms
 {
@@ -358,7 +360,7 @@ namespace Management_Internet_Cafe.Forms
             break;
 
           case "EXCEL":
-            //ExportToExcel(reportText);
+            ExportToExcel(reportText);
             break;
         }
       }
@@ -420,6 +422,93 @@ namespace Management_Internet_Cafe.Forms
         }
       }
     }
+    private void ExportToExcel(string reportText)
+    {
+      using (SaveFileDialog sfd = new SaveFileDialog())
+      {
+        sfd.Filter = "Excel File (*.xlsx)|*.xlsx";
+        sfd.FileName = "report.xlsx";
 
+        if (sfd.ShowDialog() != DialogResult.OK)
+          return;
+
+        try
+        {
+          ExcelPackage.License.SetNonCommercialPersonal("Student");
+
+          using (ExcelPackage package = new ExcelPackage())
+          {
+            var ws = package.Workbook.Worksheets.Add("Report");
+
+            var sections = new Dictionary<string, int>
+                {
+                    { "CLIENTS", 1 },
+                    { "COMPUTERS", 2 },
+                    { "GAMES", 3 },
+                    { "SESSIONS", 4 },
+                    { "SESSION GAMES", 5 },
+                    { "PAYMENTS", 6 }
+                };
+
+            var currentRow = new Dictionary<int, int>();
+
+            foreach (var col in sections.Values)
+              currentRow[col] = 1;
+
+            string currentSection = null;
+
+            string[] lines = reportText.Split('\n');
+
+            foreach (var rawLine in lines)
+            {
+              string line = rawLine.Trim();
+
+              if (string.IsNullOrWhiteSpace(line))
+                continue;
+
+              // detect section headers
+              if (line.Contains("CLIENTS"))
+                currentSection = "CLIENTS";
+              else if (line.Contains("COMPUTERS"))
+                currentSection = "COMPUTERS";
+              else if (line.Contains("GAMES"))
+                currentSection = "GAMES";
+              else if (line.Contains("SESSIONS"))
+                currentSection = "SESSIONS";
+              else if (line.Contains("SESSION GAMES"))
+                currentSection = "SESSION GAMES";
+              else if (line.Contains("PAYMENTS"))
+                currentSection = "PAYMENTS";
+
+              if (currentSection == null)
+                continue;
+
+              int col = sections[currentSection];
+
+              ws.Cells[currentRow[col], col].Value = line;
+              currentRow[col]++;
+            }
+
+            // headers
+            ws.Cells[1, 1].Value = "Clients";
+            ws.Cells[1, 2].Value = "Computers";
+            ws.Cells[1, 3].Value = "Games";
+            ws.Cells[1, 4].Value = "Sessions";
+            ws.Cells[1, 5].Value = "Session Games";
+            ws.Cells[1, 6].Value = "Payments";
+
+            ws.Cells.AutoFitColumns();
+
+            File.WriteAllBytes(sfd.FileName, package.GetAsByteArray());
+          }
+
+          MessageBox.Show("Excel exported successfully!");
+        }
+        catch (Exception ex)
+        {
+          MessageBox.Show("Excel export failed: " + ex.Message);
+        }
+      }
+    }
   }
 }
