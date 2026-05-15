@@ -12,13 +12,19 @@ namespace Management_Internet_Cafe
 
     private void Form1_Load(object sender, EventArgs e)
     {
-      
+
     }
 
     private void btn_Load_Test_Tables_Click(object sender, EventArgs e)
     {
       Simple_Data_Grid_View form = new Simple_Data_Grid_View();
       form.ShowDialog();
+    }
+
+    private void btn_Repor_Form_Click(object sender, EventArgs e)
+    {
+      Report_Form R_Form = new Report_Form();
+      R_Form.ShowDialog();
     }
   }
 }
